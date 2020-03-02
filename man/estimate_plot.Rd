@@ -4,16 +4,18 @@
 \alias{estimate_plot}
 \title{Return a plot of a list of models estimates and their intervals}
 \usage{
-estimate_plot(model_list, model_names)
+estimate_plot(model_list, model_names, term = NULL)
 }
 \arguments{
 \item{model_list}{A list of statistical model objects.}
 
 \item{model_names}{A character vector containing the list of model names.}
+
+\item{term}{The model term to be compared across all models.}
 }
 \value{
 An invisible plot containing all model estimates as a ggplot.
 }
 \description{
-Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals
+Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals. \code{model_names} is implicitly converted to numeric to provide a sensible order for the provided models on the x-axis.
 }

@@ -24,7 +24,7 @@ grid_arrange_shared_legend(
 \item{plot_legend}{Which plot to pull the legend element from, defaults to the first provided plot.}
 }
 \value{
-An invisible plot containing all supplied ggplots, as well as a shared legend located at \link{position}.
+An invisible plot containing all supplied ggplots, as well as a shared legend located at \code{position}.
 }
 \description{
 Creates a n x n grid of plots that all share the same legend using grid.arrange.
