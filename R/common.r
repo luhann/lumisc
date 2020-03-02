@@ -8,6 +8,7 @@
 #' @examples
 #'  1 %nin% 1:10
 #'  1 %nin% 2:10
+#' 11 %nin% 1:10
 #' @export
 #' @rdname nin
 `%nin%` = Negate(`%in%`)
