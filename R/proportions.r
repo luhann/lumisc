@@ -8,6 +8,13 @@
 #' @return A datafram with one entry per category of the variable and its proportion.
 #' @export
 return_proportions = function(dataframe, variable, precision = 2) {
+  if (!variable %in% colnames(dataframe) & typeof(variable) == "character") {
+    stop("column name not in dataframe")
+  }
+
+  if (!variable %in% 1:ncol(dataframe) & typeof(variable) == "integer") {
+    stop("column number not in dataframe")
+  }
 
   values = c(names(table(dataframe[[variable]])), "NA")
   count = as.numeric(table(dataframe[[variable]], useNA = "always"))
