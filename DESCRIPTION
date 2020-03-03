@@ -1,19 +1,18 @@
 Type: Package
 Package: misc
 Title: Miscellaneous functions to help with data analysis
-Version: 0.0.1
+Version: 0.0.1.9000
 Authors@R: person("Luke", "Hannan", email = "luke@lukehannan.com", role = c("aut", "cre"))
 Description: A collection of R functions that have been written to be generic and to help 
     for a wide-variety of data-analysis workflows.
 Depends: R (>= 3.5.0)
 Imports:
-    rlang,
+    rlang (>= 0.3.0),
     ggplot2 (>= 3.1),
     gridExtra (>= 2.3),
     cluster(>= 2.0),
     data.table (>= 1.0),
-    broom (>= 0.5),
-    scales,
+    broom (>= 0.5)
 Suggests: 
     testthat (>= 2.1.0),
     knitr
