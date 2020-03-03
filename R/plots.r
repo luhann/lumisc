@@ -47,27 +47,25 @@ grid_arrange_shared_legend = function(..., ncol = length(list(...)), nrow = 1, p
 #' @importFrom rlang .data
 #' @param model_list A list of statistical model objects.
 #' @param model_names A character vector containing the list of model names.
-#' @param term The model term to be compared across all models.
+#' @param coefficient The model term to be compared across all models.
 #' @return An invisible plot containing all model estimates as a ggplot.
 #' @export
-estimate_plot = function(model_list, model_names, term = NULL) {
-  model_list = lapply(model_list, broom::tidy)
+estimate_plot = function(model_list, model_names, coefficient = NULL) {
+  model_list = lapply(model_list, broom::tidy, conf.int = TRUE)
 
   data.table::setattr(model_list, 'names', model_names)
   model_table = data.table::rbindlist(model_list, use.names = TRUE, idcol = "model")
 
   data.table::set(model_table, j = "model", value = as.numeric(model_table[["model"]]))
 
-  if (!is.null(term)) {
-      model_table[term = term, ]
+  if (!is.null(coefficient)) {
+      model_table = model_table[.data$term == coefficient, ]
   }
 
   # Now to make a nice plot
   p = ggplot2::ggplot(ggplot2::aes(x = .data$model, y = .data$estimate), data = model_table) +
     ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
-    ggplot2::geom_hline(yintercept = 1, linetype= 4, color = "black", size = 0.5, alpha = 0.8) +
-    ggplot2::scale_y_continuous(scales::pretty_breaks()) +
-    ggplot2::labs(x = "Timeperiod", y = "Conditional Odds Ratio", colour = "Estimate") + 
+    ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") + 
     ggplot2::theme_minimal()
 
   return(p)

@@ -24,7 +24,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Luke Hannan \email{lukehannan@gmail.com}
+\strong{Maintainer}: Luke Hannan \email{luke@lukehannan.com}
 
 }
 \keyword{internal}

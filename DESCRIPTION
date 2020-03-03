@@ -10,14 +10,13 @@ Imports:
     rlang,
     ggplot2 (>= 3.1),
     gridExtra (>= 2.3),
-    tibble(>= 2.1),
     cluster(>= 2.0),
     data.table (>= 1.0),
     broom (>= 0.5),
     scales,
-    knitr
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr
 License: MIT + file LICENSE
 URL: http://github.com/lukehannan/misc
 Encoding: UTF-8

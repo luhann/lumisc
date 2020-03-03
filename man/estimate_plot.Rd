@@ -4,14 +4,14 @@
 \alias{estimate_plot}
 \title{Return a plot of a list of models estimates and their intervals}
 \usage{
-estimate_plot(model_list, model_names, term = NULL)
+estimate_plot(model_list, model_names, coefficient = NULL)
 }
 \arguments{
 \item{model_list}{A list of statistical model objects.}
 
 \item{model_names}{A character vector containing the list of model names.}
 
-\item{term}{The model term to be compared across all models.}
+\item{coefficient}{The model term to be compared across all models.}
 }
 \value{
 An invisible plot containing all model estimates as a ggplot.

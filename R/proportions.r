@@ -13,7 +13,7 @@ return_proportions = function(dataframe, variable, precision = 2) {
   count = as.numeric(table(dataframe[[variable]], useNA = "always"))
   prop = round(prop.table(count), precision)
 
-  out = tibble::tibble(
+  out = data.table::data.table(
     values = values,
     count = count,
     prop = prop)
