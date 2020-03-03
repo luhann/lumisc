@@ -19,11 +19,29 @@
 #' Returns the mode (number that occurs the most) of a given vector.
 #'
 #' @param x Vector you wish to evaluate.
-#'@rdname getmode
+#' @rdname getmode
 getmode = function(x) {
-  uniqx = unique(x)
-  uniqx[which.max(tabulate(match(x, uniqx)))]
+  UseMethod("getmode")
 }
+
+#' @export 
+getmode.default = function(x) {
+  warning("I'm not sure what to do with type ", typeof(x))
+}
+
+#' @export 
+getmode.numeric = function(x) {
+  ux = unique(x)
+  tab = tabulate(match(x, ux))
+  ux[tab == max(tab)]
+}
+
+#' @export 
+getmode.factor = getmode.numeric
+
+#' @export 
+getmode.character = getmode.numeric
+
 
 #' get_colref
 #'
@@ -32,19 +50,31 @@ getmode = function(x) {
 #' @param df The dataframe to evaluate
 #' @param x The column name (in string format) or column number (integer format) that you wish to evaluate
 #' @rdname get_colref
+#' @export 
 get_colref = function(df, x) {
-  if (is.integer(x) == TRUE) {
-    if (x > length(colnames(df)) | x < 1) {
+  UseMethod("get_colref", x)
+}
+
+#' @export 
+get_colref.default = function(df, x) {
+  stop("Invalid column Type")
+}
+
+#' @export 
+get_colref.numeric = function(df, x) {
+  if (x > length(colnames(df)) | x < 1) {
       stop("Value supplied is outside column range.")
     } else {
       return(colnames(df)[x])
     }
 
-  } else if (is.character(x) == TRUE) {
-    if (x %in% colnames(df) != TRUE) {
+}
+
+#' @export 
+get_colref.character = function(df, x) {
+if (x %in% colnames(df) != TRUE) {
       stop("Column name not in supplied dataframe")
     } else {
       return(which(colnames(df)==x))
     }
-  } else stop("Invalid Type")
 }
