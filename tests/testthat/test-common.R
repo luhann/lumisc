@@ -1,15 +1,41 @@
 context("common functions")
 
 
+
 test_that("input length is equal to output length", {
   expect_equal(length(1 %nin% 1:10), 1L)
-  expect_equal(length(11 %nin% 1:10), 1L)
   expect_equal(length(-1:3 %nin% 1:10), 5L)
+  expect_equal(length(NA %nin% 1:10), 1L)
 })
 
 test_that("output is of type logical", {
   expect_equal(typeof(1 %nin% 1:10), "logical")
-  expect_equal(typeof(11 %nin% 1:10), "logical")
   expect_equal(typeof(NA %nin% 1:10), "logical")
   expect_equal(typeof(NULL %nin% 1:10), "logical")
+})
+
+test_that("output is same type as input", {
+  expect_type(getmode(1:10), "integer")
+  expect_type(getmode(c("a", "b", "c", "a")), "character")
+  expect_type(getmode(c("a", "b", "c", "a")), "character")
+})
+
+test_that("function doesn't work with unexpected type", {
+  expect_error(getmode(c(TRUE, TRUE, FALSE)), "type logical$")
+  expect_error(get_colref(data, TRUE), "type$")
+})
+
+
+test_that("returns correct type", {
+  data = data.frame(col1 = 1:10, col2 = 11:20)
+
+  expect_type(get_colref(data, 1L), "character")
+  expect_type(get_colref(data, "col1"), "integer")
+})
+
+test_that("stops on invalid input", {
+  data = data.frame(col1 = 1:10, col2 = 11:20)
+
+  expect_error(get_colref(data, 3L), "outside column range$")
+  expect_error(get_colref(data, "col7"), "Column name not in supplied dataframe$")
 })

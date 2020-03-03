@@ -20,13 +20,14 @@
 #'
 #' @param x Vector you wish to evaluate.
 #' @rdname getmode
+#' @export 
 getmode = function(x) {
   UseMethod("getmode")
 }
 
 #' @export 
 getmode.default = function(x) {
-  warning("I'm not sure what to do with type ", typeof(x))
+  stop("I'm not sure what to do with type ", typeof(x))
 }
 
 #' @export 
@@ -57,13 +58,13 @@ get_colref = function(df, x) {
 
 #' @export 
 get_colref.default = function(df, x) {
-  stop("Invalid column Type")
+  stop("Invalid column type")
 }
 
 #' @export 
 get_colref.numeric = function(df, x) {
   if (x > length(colnames(df)) | x < 1) {
-      stop("Value supplied is outside column range.")
+      stop("Value supplied is outside column range")
     } else {
       return(colnames(df)[x])
     }
