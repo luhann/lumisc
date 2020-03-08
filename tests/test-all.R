@@ -1,4 +1,4 @@
 library(testthat)
-library(misc)
+library(lumisc)
 
-test_check("misc")
+test_check("lumisc")

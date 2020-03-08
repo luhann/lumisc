@@ -1,8 +1,8 @@
-# misc <img src="man/figures/logo.svg" align="right" width="100" />
+# lumisc <img src="man/figures/logo.svg" align="right" width="100" />
 
 ## Overview
 
-`misc` provides a number of small functions and utilities that I find useful or use regularly, inspired by [Hmisc](https://github.com/harrelfe/Hmisc).
+`lumisc` provides a number of small functions and utilities that I find useful or use regularly, inspired by [Hmisc](https://github.com/harrelfe/Hmisc).
 
 ## Installation
 
@@ -11,11 +11,11 @@ Currently the only way to install this package is through GitHub.
 ``` r
 # to get the development version from GitHub:
 install.packages("remotes")
-remotes::install_github("lukehannan/misc")
+remotes::install_github("lukehannan/lumisc")
 ```
 
 If you find a bug, please file a minimal reproducible example in the
-[issues](https://github.com/lukehannan/misc/issues). I am grateful for any feedback and/or contributions.
+[issues](https://github.com/lukehannan/lumisc/issues). I am grateful for any feedback and/or contributions.
 
 ## Current Work
 

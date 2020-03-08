@@ -1,5 +1,5 @@
 Type: Package
-Package: misc
+Package: lumisc
 Title: Miscellaneous functions to help with data analysis
 Version: 0.0.1.9000
 Authors@R: person("Luke", "Hannan", email = "luke@lukehannan.com", role = c("aut", "cre"))
