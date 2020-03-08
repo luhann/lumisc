@@ -10,8 +10,8 @@ Currently the only way to install this package is through GitHub.
 
 ``` r
 # to get the development version from GitHub:
-install.packages("devtools")
-devtools::install_github("lukehannan/misc")
+install.packages("remotes")
+remotes::install_github("lukehannan/misc")
 ```
 
 If you find a bug, please file a minimal reproducible example in the
