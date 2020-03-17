@@ -2,6 +2,7 @@
 #'
 #' Creates a n x n grid of plots that all share the same legend using grid.arrange.
 #'
+#' @name grid_arrange_shared_legend
 #' @param ... The ggplot2 objects to plot
 #' @param ncol The number of columns to arrange the plots into.
 #' @param nrow The number of rows to arrange the plots into.
@@ -44,6 +45,7 @@ grid_arrange_shared_legend = function(..., ncol = length(list(...)), nrow = 1, p
 #'
 #' Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals. `model_names` is implicitly converted to numeric to provide a sensible order for the provided models on the x-axis.
 #'
+#' @name estimate_plot
 #' @importFrom rlang .data
 #' @param model_list A list of statistical model objects.
 #' @param model_names A character vector containing the list of model names.

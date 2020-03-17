@@ -1,6 +1,5 @@
 #' Inverse Value Matching
 #'
-#'
 #' Complement of \code{\%in\%}. Returns the elements of \code{x} that are
 #' not in \code{y}.
 #'
@@ -10,8 +9,28 @@
 #'  1 %nin% 2:10
 #' 11 %nin% 1:10
 #' @export
-#' @rdname nin
+#' @name nin
 `%nin%` = Negate(`%in%`)
+
+#' Default value for NULL
+#'
+#' Return \code{lhs} if \code{lhs} is not \code{NULL} otherwise returns
+#' code{rhs}
+#'
+#' @usage lhs %||% rhs
+#' @examples 
+#' 1 %||% 2 # returns 1
+#' NULL %||% 2 # returns 2
+#' @name nil
+#' @aliases %||%
+#' @export 
+`%||%` <- function(lhs, rhs) {
+  if (!is.null(lhs)) {
+    lhs
+  } else {
+    rhs
+  }
+}
 
 
 #' Mode
@@ -19,7 +38,7 @@
 #' Returns the mode (number that occurs the most) of a given vector.
 #'
 #' @param x Vector you wish to evaluate.
-#' @rdname getmode
+#' @name getmode
 #' @export 
 getmode = function(x) {
   UseMethod("getmode")
@@ -50,7 +69,7 @@ getmode.character = getmode.numeric
 #'
 #' @param df The dataframe to evaluate
 #' @param x The column name (in string format) or column number (integer format) that you wish to evaluate
-#' @rdname get_colref
+#' @name get_colref
 #' @export 
 get_colref = function(df, x) {
   UseMethod("get_colref", x)

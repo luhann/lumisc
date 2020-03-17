@@ -39,3 +39,9 @@ test_that("stops on invalid input", {
   expect_error(get_colref(data, 3L), "outside column range$")
   expect_error(get_colref(data, "col7"), "Column name not in supplied dataframe$")
 })
+
+test_that("nil", {  
+  expect_equal(1 %||% 2, 1)
+  expect_equal(NULL %||% 2, 2)
+  expect_equal(NA %||% 2, NA)
+})
