@@ -21,7 +21,7 @@ separate replicate.
 Simulate from a multivariate normal distribution.
 }
 \details{
-Uses the Cholesky decomposition of the matrix \code{V}, obtained by
+Uses the Cholesky decomposition of the matrix \code{cov}, obtained by
 \code{\link[base:chol]{base::chol()}}.
 }
 \examples{

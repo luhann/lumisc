@@ -5,8 +5,8 @@
 #'
 #' @usage x %in% c(x, y, z)
 #' @examples
-#'  1 %nin% 1:10
-#'  1 %nin% 2:10
+#' 1 %nin% 1:10
+#' 1 %nin% 2:10
 #' 11 %nin% 1:10
 #' @name nin
 #' @aliases %!in%
@@ -19,12 +19,12 @@
 #' code{rhs}
 #'
 #' @usage lhs %||% rhs
-#' @examples 
+#' @examples
 #' 1 %||% 2 # returns 1
 #' NULL %||% 2 # returns 2
 #' @name nil
 #' @aliases %||%
-#' @export 
+#' @export
 `%||%` <- function(lhs, rhs) {
   if (!is.null(lhs)) {
     lhs
@@ -40,27 +40,27 @@
 #'
 #' @param x Vector you wish to evaluate.
 #' @name getmode
-#' @export 
+#' @export
 getmode = function(x) {
   UseMethod("getmode")
 }
 
-#' @export 
+#' @export
 getmode.default = function(x) {
   rlang::abort(glue::glue("Mode not defined for type: ({typeof(x)})."), class = "invalid_type_error", val_type = typeof(x))
 }
 
-#' @export 
+#' @export
 getmode.numeric = function(x) {
   ux = unique(x)
   tab = tabulate(match(x, ux))
   ux[tab == max(tab)]
 }
 
-#' @export 
+#' @export
 getmode.factor = getmode.numeric
 
-#' @export 
+#' @export
 getmode.character = getmode.numeric
 
 
@@ -71,35 +71,45 @@ getmode.character = getmode.numeric
 #' @param df The dataframe to evaluate
 #' @param x The column name (in string format) or column number (integer format) that you wish to evaluate
 #' @name get_colref
-#' @export 
+#' @export
 get_colref = function(df, x) {
   UseMethod("get_colref", x)
 }
 
-#' @export 
+#' @export
 get_colref.default = function(df, x) {
   rlang::abort(glue::glue("Can't access column using given type ({typeof(x)})."), class = "invalid_type_error")
 }
 
-#' @export 
+#' @export
 get_colref.numeric = function(df, x) {
   # Coerce all numerics to integer so double inputs still extract a column
   # Following the regular coercion rules
   x = as.integer(x)
 
   if (x > length(colnames(df)) | x < 1) {
-      rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
-    } else {
-      return(colnames(df)[x])
-    }
-
+    rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
+  } else {
+    return(colnames(df)[x])
+  }
 }
 
-#' @export 
+#' @export
 get_colref.character = function(df, x) {
-if (x %in% colnames(df) != TRUE) {
-      rlang::abort(glue::glue("Column \"{x}\" not found in supplied dataframe."), class = "invalid_index_error")
-    } else {
-      return(which(colnames(df)==x))
-    }
+  if (x %in% colnames(df) != TRUE) {
+    rlang::abort(glue::glue("Column \"{x}\" not found in supplied dataframe."), class = "invalid_index_error")
+  } else {
+    return(which(colnames(df) == x))
+  }
+}
+
+#' quit
+#'
+#' Quits R without saving the workspace to an image
+#'
+#' @name q
+#' @aliases quit
+#' @export
+q <- function(save = "no", ...) {
+  quit(save = save, ...)
 }
