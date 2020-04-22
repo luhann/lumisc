@@ -7,6 +7,11 @@
 \usage{
 q(save = "no", ...)
 }
+\arguments{
+\item{save}{Default \code{no}. Choose whether or not to save the workspace.}
+
+\item{...}{Additional arguments passed to the \code{quit()} function.}
+}
 \description{
 Quits R without saving the workspace to an image
 }

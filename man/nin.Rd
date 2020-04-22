@@ -12,7 +12,7 @@ Complement of \code{\%in\%}. Returns the elements of \code{x} that are
 not in \code{y}.
 }
 \examples{
-1 \%nin\% 1:10
-1 \%nin\% 2:10
-11 \%nin\% 1:10
+1 \%!in\% 1:10
+1 \%!in\% 2:10
+11 \%!in\% 1:10
 }

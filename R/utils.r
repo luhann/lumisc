@@ -5,9 +5,9 @@
 #'
 #' @usage x %in% c(x, y, z)
 #' @examples
-#' 1 %nin% 1:10
-#' 1 %nin% 2:10
-#' 11 %nin% 1:10
+#' 1 %!in% 1:10
+#' 1 %!in% 2:10
+#' 11 %!in% 1:10
 #' @name nin
 #' @aliases %!in%
 #' @export
@@ -25,7 +25,7 @@
 #' @name nil
 #' @aliases %||%
 #' @export
-`%||%` <- function(lhs, rhs) {
+`%||%` = function(lhs, rhs) {
   if (!is.null(lhs)) {
     lhs
   } else {
@@ -47,7 +47,11 @@ getmode = function(x) {
 
 #' @export
 getmode.default = function(x) {
-  rlang::abort(glue::glue("Mode not defined for type: ({typeof(x)})."), class = "invalid_type_error", val_type = typeof(x))
+  rlang::abort(
+    glue::glue("Mode not defined for type: ({typeof(x)})."),
+    class = "invalid_type_error",
+    val_type = typeof(x)
+  )
 }
 
 #' @export
@@ -108,8 +112,10 @@ get_colref.character = function(df, x) {
 #' Quits R without saving the workspace to an image
 #'
 #' @name q
+#' @param save Default \code{no}. Choose whether or not to save the workspace.
+#' @param ... Additional arguments passed to the \code{quit()} function.
 #' @aliases quit
 #' @export
-q <- function(save = "no", ...) {
+q = function(save = "no", ...) {
   quit(save = save, ...)
 }

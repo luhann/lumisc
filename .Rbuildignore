@@ -1,3 +1,4 @@
 ^lumisc\.Rproj$
 ^\.Rproj\.user$
 ^revdep$
+.lintr
