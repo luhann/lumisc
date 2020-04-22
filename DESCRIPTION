@@ -14,6 +14,8 @@ Imports:
     data.table (>= 1.0),
     broom (>= 0.5)
 Suggests: 
+    languageserver (>= 0.3),
+    styler (>= 1.0),
     testthat (>= 2.1),
     knitr
 License: MIT + file LICENSE

@@ -1,4 +1,4 @@
-context("common functions")
+context("common utilities")
 
 
 
@@ -21,7 +21,7 @@ test_that("output is same type as input", {
 })
 
 test_that("function doesn't work with unexpected type", {
-  data = data.frame(col1 = 1:10, col2 = 11:20)
+  data <- data.frame(col1 = 1:10, col2 = 11:20)
 
   expect_error(getmode(c(TRUE, TRUE, FALSE)), class = "invalid_type_error")
   expect_error(get_colref(data, TRUE), class = "invalid_type_error")
@@ -29,7 +29,7 @@ test_that("function doesn't work with unexpected type", {
 
 
 test_that("returns correct type", {
-  data = data.frame(col1 = 1:10, col2 = 11:20)
+  data <- data.frame(col1 = 1:10, col2 = 11:20)
 
   expect_type(get_colref(data, 1L), "character")
   expect_type(get_colref(data, 1.5), "character")
@@ -37,13 +37,13 @@ test_that("returns correct type", {
 })
 
 test_that("stops on invalid input", {
-  data = data.frame(col1 = 1:10, col2 = 11:20)
+  data <- data.frame(col1 = 1:10, col2 = 11:20)
 
   expect_error(get_colref(data, 3L), class = "invalid_index_error")
   expect_error(get_colref(data, "col7"), class = "invalid_index_error")
 })
 
-test_that("nil", {  
+test_that("nil", {
   expect_equal(1 %||% 2, 1)
   expect_equal(NULL %||% 2, 2)
   expect_equal(NA %||% 2, NA)
