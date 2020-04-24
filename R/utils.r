@@ -119,3 +119,16 @@ get_colref.character = function(df, x) {
 q = function(save = "no", ...) {
   quit(save = save, ...)
 }
+
+
+#' View
+#'
+#' Invoke a spreadsheet-style data viewer on a matrix-like R object.
+#'
+#' @name view
+#' @param x An R object which can be coerced to a data frame with non-zero numbers of rows and columns.
+#' @param title Title for viewer window.  Defaults to name of 'x' prefixed by 'Data:'.
+#' @export
+view = function(x, title) {
+  utils::View(x, title)
+}
