@@ -12,7 +12,7 @@ return_proportions = function(dataframe, variable, precision = 2) {
     rlang::abort(glue::glue("Column \"{variable}\" not found in dataframe."), class = "invalid_index_error")
   }
 
-  if (!variable %in% 1:ncol(dataframe) & typeof(variable) == "integer") {
+  if (!variable %in% seq_len(ncol(dataframe)) & typeof(variable) == "integer") {
     rlang::abort(glue::glue("Column number {variable} not found in dataframe."), class = "invalid_index_error")
   }
 
@@ -23,7 +23,8 @@ return_proportions = function(dataframe, variable, precision = 2) {
   out = data.table::data.table(
     values = values,
     count = count,
-    prop = prop)
+    prop = prop
+  )
 
   return(out)
 }
