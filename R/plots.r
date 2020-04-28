@@ -11,32 +11,37 @@
 #' @return An invisible plot containing all supplied ggplots, as well as a shared legend located at `position`.
 #' @export
 grid_arrange_shared_legend = function(..., ncol = length(list(...)), nrow = 1, position = c("bottom", "right"), plot_legend = 1) {
-
   plots = list(...)
   position = match.arg(position)
   g = ggplot2::ggplotGrob(plots[[plot_legend]] + ggplot2::theme(legend.position = position))$grobs
-  legend = g[[which(sapply(g, function(x){ x$name}) == "guide-box")]]
+  legend = g[[which(sapply(g, function(x) {
+    x$name
+  }) == "guide-box")]]
   lheight = sum(legend$height)
   lwidth = sum(legend$width)
-  gl = lapply(plots, function(x){ x + ggplot2::theme(legend.position = "none")})
+  gl = lapply(plots, function(x) {
+    x + ggplot2::theme(legend.position = "none")
+  })
   gl = c(gl, ncol = ncol, nrow = nrow)
 
   combined = switch(position,
-                    "bottom" = gridExtra::arrangeGrob(do.call(gridExtra::arrangeGrob, gl),
-                                                        legend,
-                                                        ncol = 1,
-                                                        heights = grid::unit.c(grid::unit(1, "npc") - lheight, lheight)),
-                    "right" = gridExtra::arrangeGrob(do.call(gridExtra::arrangeGrob, gl),
-                                                      legend,
-                                                      ncol = 2,
-                                                      widths = grid::unit.c(grid::unit(1, "npc") - lwidth, lwidth)))
+    "bottom" = gridExtra::arrangeGrob(do.call(gridExtra::arrangeGrob, gl),
+      legend,
+      ncol = 1,
+      heights = grid::unit.c(grid::unit(1, "npc") - lheight, lheight)
+    ),
+    "right" = gridExtra::arrangeGrob(do.call(gridExtra::arrangeGrob, gl),
+      legend,
+      ncol = 2,
+      widths = grid::unit.c(grid::unit(1, "npc") - lwidth, lwidth)
+    )
+  )
 
   grid::grid.newpage()
   grid::grid.draw(combined)
 
   # return gtable invisibly
-  return(combined)
-
+  invisible(combined)
 }
 
 
@@ -55,20 +60,20 @@ grid_arrange_shared_legend = function(..., ncol = length(list(...)), nrow = 1, p
 estimate_plot = function(model_list, model_names, coefficient = NULL) {
   model_list = lapply(model_list, broom::tidy, conf.int = TRUE)
 
-  data.table::setattr(model_list, 'names', model_names)
+  data.table::setattr(model_list, "names", model_names)
   model_table = data.table::rbindlist(model_list, use.names = TRUE, idcol = "model")
 
   data.table::set(model_table, j = "model", value = as.numeric(model_table[["model"]]))
 
   if (!is.null(coefficient)) {
-      model_table = model_table[.data$term == coefficient, ]
+    model_table = model_table[.data$term == coefficient, ]
   }
 
   # Now to make a nice plot
   p = ggplot2::ggplot(ggplot2::aes(x = .data$model, y = .data$estimate), data = model_table) +
     ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
-    ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") + 
+    ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") +
     ggplot2::theme_minimal()
 
-  return(p)
+  invisible(p)
 }

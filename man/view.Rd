@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{view}
 \alias{view}
-\title{View}
+\title{view}
 \usage{
 view(x, title)
 }

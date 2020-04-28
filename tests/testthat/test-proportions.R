@@ -1,4 +1,4 @@
-context("proportions")
+context("proportions functions")
 
 
 
@@ -8,7 +8,6 @@ test_that("fails with correct error", {
   expect_error(return_proportions(data, NULL), "length zero$")
   expect_error(return_proportions(data, "no_in"), class = "invalid_index_error")
   expect_error(return_proportions(data, 3L), class = "invalid_index_error")
-
 })
 
 test_that("returns correct result", {

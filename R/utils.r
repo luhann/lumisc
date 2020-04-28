@@ -121,7 +121,7 @@ q = function(save = "no", ...) {
 }
 
 
-#' View
+#' view
 #'
 #' Invoke a spreadsheet-style data viewer on a matrix-like R object.
 #'
