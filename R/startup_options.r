@@ -76,11 +76,8 @@ set_startup_options = function(digits = 4L,
     download.file.extra = download.file.extra,
     ...
   )
-  if (error == "rlang") {
-    if (requireNamespace("rlang", quietly = TRUE)) options(error = rlang::entrace)
-  } else {
-    options(error = error)
-  }
+  if (error == "rlang") if (requireNamespace("rlang", quietly = TRUE)) options(error = rlang::entrace)
+
 
   if (requireNamespace("languageserver", quietly = TRUE)) {
     options(
