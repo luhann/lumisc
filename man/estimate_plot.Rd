@@ -14,8 +14,8 @@ estimate_plot(model_list, model_names, coefficient = NULL)
 \item{coefficient}{The model term to be compared across all models.}
 }
 \value{
-An invisible plot containing all model estimates as a ggplot.
+An invisible plot containing all model estimates as a ggplot
 }
 \description{
-Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals. \code{model_names} is implicitly converted to numeric to provide a sensible order for the provided models on the x-axis.
+Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals.
 }
