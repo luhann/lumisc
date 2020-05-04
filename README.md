@@ -11,11 +11,11 @@ Currently the only way to install this package is through GitHub.
 ``` r
 # to get the development version from GitHub:
 install.packages("remotes")
-remotes::install_github("lukehannan/lumisc")
+remotes::install_github("luhann/lumisc")
 ```
 
 If you find a bug, please file a minimal reproducible example in the
-[issues](https://github.com/lukehannan/lumisc/issues). I am grateful for any feedback and/or contributions.
+[issues](https://github.com/luhann/lumisc/issues). I am grateful for any feedback and/or contributions.
 
 ## Current Work
 
