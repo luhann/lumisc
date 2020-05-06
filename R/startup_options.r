@@ -59,23 +59,6 @@ set_startup_options = function(digits = 4L,
                                  )
                                ),
                                ...) {
-  options(
-    digits = digits,
-    show.signif.stars = show.signif.stars, # nolint
-    useFancyQuotes = useFancyQuotes, # nolint
-    width = width,
-    Ncpus = Ncpus,
-    continue = continue,
-    max.print = max.print, # Avoid blow up
-    servr.daemon = servr.daemon, # For xaringan presentations,
-    max = max, # List printing
-    mc.cores = mc.cores,
-    warnPartialMatchArgs = warnPartialMatchArgs,
-    scipen = scipen,
-    HTTPUserAgent = HTTPUserAgent,
-    download.file.extra = download.file.extra,
-    ...
-  )
   if (error == "rlang") if (requireNamespace("rlang", quietly = TRUE)) options(error = rlang::entrace)
 
 
@@ -92,4 +75,27 @@ set_startup_options = function(digits = 4L,
   # enable autocompletions for package names in
   # `require()`, `library()`
   utils::rc.settings(ipck = TRUE)
+
+  options(
+    digits = digits,
+    show.signif.stars = show.signif.stars, # nolint
+    useFancyQuotes = useFancyQuotes, # nolint
+    width = width,
+    Ncpus = Ncpus,
+    continue = continue,
+    max.print = max.print, # Avoid blow up
+    servr.daemon = servr.daemon, # For xaringan presentations,
+    max = max, # List printing
+    mc.cores = mc.cores,
+    menu.graphics = menu.graphics,
+    continue = continue,
+    warnPartialMatchArgs = warnPartialMatchArgs,
+    warnPartialMatchDollar = warnPartialMatchDollar, # nolint
+    warnPartialMatchAttr = warnPartialMatchAttr, # nolint
+    scipen = scipen,
+    nwarnings = nwarnings,
+    HTTPUserAgent = HTTPUserAgent,
+    download.file.extra = download.file.extra,
+    ...
+  )
 }
