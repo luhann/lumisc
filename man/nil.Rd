@@ -5,13 +5,18 @@
 \alias{\%||\%}
 \title{Default value for NULL}
 \usage{
-lhs %||% rhs
+lhs \%||\% rhs
+}
+\arguments{
+\item{lhs}{An object to set if it's null}
+
+\item{rhs}{The value to provide if x is null}
 }
 \description{
 Return \code{lhs} if \code{lhs} is not \code{NULL} otherwise returns
 code{rhs}
 }
 \examples{
-1 \%||\% 2 # returns 1
-NULL \%||\% 2 # returns 2
+1 \%||\% 2
+NULL \%||\% 2
 }

@@ -3,28 +3,29 @@
 #' Complement of \code{\%in\%}. Returns the elements of \code{x} that are
 #' not in \code{y}.
 #'
-#' @usage x %in% c(x, y, z)
+#' @name nin
+#' @param x test
+#' @param table test
+#' @aliases %!in%
+#' @export
 #' @examples
 #' 1 %!in% 1:10
 #' 1 %!in% 2:10
 #' 11 %!in% 1:10
-#' @name nin
-#' @aliases %!in%
-#' @export
-`%!in%` = Negate(`%in%`)
+`%!in%` = function(x, table) !`%in%`(x, table)
 
 #' Default value for NULL
 #'
 #' Return \code{lhs} if \code{lhs} is not \code{NULL} otherwise returns
 #' code{rhs}
-#'
-#' @usage lhs %||% rhs
-#' @examples
-#' 1 %||% 2 # returns 1
-#' NULL %||% 2 # returns 2
+#' @param lhs An object to set if it's null
+#' @param rhs The value to provide if x is null
 #' @name nil
 #' @aliases %||%
 #' @export
+#' @examples
+#' 1 %||% 2
+#' NULL %||% 2
 `%||%` = function(lhs, rhs) {
   if (!is.null(lhs)) {
     lhs

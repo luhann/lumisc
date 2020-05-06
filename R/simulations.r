@@ -21,7 +21,7 @@
 #'   separate replicate.
 #'
 #' @examples
-#' x = rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2))
+#' rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2))
 #' @seealso
 #' [stats::rnorm()]
 #'

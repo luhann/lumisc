@@ -5,7 +5,12 @@
 \alias{\%!in\%}
 \title{Inverse Value Matching}
 \usage{
-x %in% c(x, y, z)
+x \%!in\% table
+}
+\arguments{
+\item{x}{test}
+
+\item{table}{test}
 }
 \description{
 Complement of \code{\%in\%}. Returns the elements of \code{x} that are
