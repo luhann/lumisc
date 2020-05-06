@@ -18,7 +18,7 @@ Suggests:
     testthat (>= 2.1),
     knitr
 License: MIT + file LICENSE
-URL: http://github.com/lukehannan/misc
+URL: http://github.com/luhann/lumisc
 Encoding: UTF-8
 VignetteBuilder: knitr
 Language: en-US

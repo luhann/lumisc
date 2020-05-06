@@ -18,7 +18,7 @@ documentation.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://github.com/lukehannan/misc}
+  \item \url{http://github.com/luhann/lumisc}
 }
 
 }
