@@ -1,7 +1,8 @@
 context("r startup")
 
 test_that("correct startup options are set", {
-  startup = set_startup_options()
+  set_startup_options()
+  startup = options()
   expect_true(startup[["warnPartialMatchArgs"]])
   expect_true(startup[["warnPartialMatchAttr"]])
   expect_true(startup[["warnPartialMatchDollar"]])

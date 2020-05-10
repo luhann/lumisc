@@ -8,9 +8,9 @@
 x \%!in\% table
 }
 \arguments{
-\item{x}{test}
+\item{x}{The values to be matched. Long vectors are supported.}
 
-\item{table}{test}
+\item{table}{Vector or ‘NULL’: the values to be matched against. Long vectors are not supported.}
 }
 \description{
 Complement of \code{\%in\%}. Returns the elements of \code{x} that are

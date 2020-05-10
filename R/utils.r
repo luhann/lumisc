@@ -4,8 +4,8 @@
 #' not in \code{y}.
 #'
 #' @name nin
-#' @param x test
-#' @param table test
+#' @param x The values to be matched. Long vectors are supported.
+#' @param table Vector or ‘NULL’: the values to be matched against. Long vectors are not supported.
 #' @aliases %!in%
 #' @export
 #' @examples
