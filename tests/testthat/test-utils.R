@@ -1,13 +1,6 @@
 context("common utilities")
 
 
-
-test_that("input length is equal to output length", {
-  expect_equal(length(1 %!in% 1:10), 1L)
-  expect_equal(length(-1:3 %!in% 1:10), 5L)
-  expect_equal(length(NA %!in% 1:10), 1L)
-})
-
 test_that("output is of correct type", {
   data = data.frame(col1 = 1:10, col2 = 11:20)
 
@@ -38,10 +31,4 @@ test_that("stops on invalid input", {
 
   expect_error(get_colref(data, 3L), class = "invalid_index_error")
   expect_error(get_colref(data, "col7"), class = "invalid_index_error")
-})
-
-test_that("nil", {
-  expect_equal(1 %||% 2, 1)
-  expect_equal(NULL %||% 2, 2)
-  expect_equal(NA %||% 2, NA)
 })
