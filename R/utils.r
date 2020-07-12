@@ -96,3 +96,51 @@ q = function(save = "no", ...) {
 view = function(x, title) {
   utils::View(x, title)
 }
+
+# switchv
+#' Vectorized version of switch
+#'
+#' Vectorized version of [base::switch()]: just loops over
+#' input and calls [base::switch()].
+#'
+#' @param EXPR An expression evaluating to a vector of numbers of strings
+#' @param ... List of alternatives
+#'
+#' @return Vector of returned values.
+#'
+#' @examples
+#' switchv(c("horse", "fish", "cat", "bug"),
+#'   horse = "fast",
+#'   cat = "cute",
+#'   "what?"
+#' )
+#' @export
+#' @author Karl Broman
+switchv = function(EXPR, ...) {
+  result = EXPR
+
+  for (i in seq(along = result)) {
+    result[i] = switch(EXPR[i], ...)
+  }
+
+  result
+}
+
+
+#'
+#' Installed version of R/lumisc
+#'
+#' Print the version number of the currently installed version of R/lumisc.
+#'
+#' @export
+#' @return
+#' A character string with the version number of the currently installed
+#'   version of R/lumisc.
+#'
+#' @examples
+#' lumiscversion()
+#' @keywords
+#' print
+lumiscversion = function() {
+  as.character(utils::packageVersion("lumisc"))
+}

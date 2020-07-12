@@ -11,6 +11,8 @@ test_that("output is of correct type", {
   expect_type(get_colref(data, 1L), "character")
   expect_type(get_colref(data, 1.5), "character")
   expect_type(get_colref(data, "col1"), "integer")
+
+  expect_type(lumiscversion(), "character")
 })
 
 test_that("output is same type as input", {
