@@ -3,6 +3,7 @@
 #' Sets nicer options. All arguments are passed to the \code{options} function.
 #' This function also sets \code{ipck = TRUE} in \code{rc.settings}.
 #' @param digits Default \code{4}
+#' @param bitmapType Default "cairo".
 #' @param show.signif.stars Default \code{FALSE}
 #' @param useFancyQuotes Default \code{FALSE}
 #' @param width Default \code{100}
@@ -19,11 +20,13 @@
 #' @param warnPartialMatchAttr = Default \code{TRUE}. Warns if partial matching is used to extract attributes via attr.
 #' @param nwarnings = 1e6,
 #' @param scipen Default \code{999}. Always print out full numbers, i.e. not 1e2
+#' @param browser Default \code{xdg-open}. Browser to open http help documents.
 #' @param HTTPUserAgent Used by RStudio Package Manager (RSPM).
 #' @param download.file.extra Used by RSPM for curl/wget installs, e.g. Rscript.
 #' @param ... Other arguments passed to \code{options}.
 #' @export
 set_startup_options = function(digits = 4L,
+                               bitmapType = "cairo",
                                show.signif.stars = FALSE, # nolint
                                useFancyQuotes = FALSE, # nolint
                                width = 88L,
@@ -40,6 +43,7 @@ set_startup_options = function(digits = 4L,
                                warnPartialMatchAttr = TRUE, # nolint
                                nwarnings = 1e6,
                                scipen = 999L, # nolint
+                               browser = "xdg-open",
                                HTTPUserAgent = sprintf(
                                  "R/%s R (%s)", getRversion(),
                                  paste(
@@ -94,6 +98,7 @@ set_startup_options = function(digits = 4L,
     warnPartialMatchAttr = warnPartialMatchAttr, # nolint
     scipen = scipen,
     nwarnings = nwarnings,
+    browser = browser,
     HTTPUserAgent = HTTPUserAgent,
     download.file.extra = download.file.extra,
     ...

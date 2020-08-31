@@ -9,6 +9,7 @@ This function also sets \code{ipck = TRUE} in \code{rc.settings}.}
 \usage{
 set_startup_options(
   digits = 4L,
+  bitmapType = "cairo",
   show.signif.stars = FALSE,
   useFancyQuotes = FALSE,
   width = 88L,
@@ -25,6 +26,7 @@ set_startup_options(
   warnPartialMatchAttr = TRUE,
   nwarnings = 1000000,
   scipen = 999L,
+  browser = "xdg-open",
   HTTPUserAgent = sprintf("R/\%s R (\%s)", getRversion(), paste(getRversion(),
     R.version$platform, R.version$arch, R.version$os)),
   download.file.extra = sprintf("--header \\"User-Agent: R (\%s)\\"",
@@ -34,6 +36,8 @@ set_startup_options(
 }
 \arguments{
 \item{digits}{Default \code{4}}
+
+\item{bitmapType}{Default "cairo".}
 
 \item{show.signif.stars}{Default \code{FALSE}}
 
@@ -66,6 +70,8 @@ set_startup_options(
 \item{nwarnings}{= 1e6,}
 
 \item{scipen}{Default \code{999}. Always print out full numbers, i.e. not 1e2}
+
+\item{browser}{Default \code{xdg-open}. Browser to open http help documents.}
 
 \item{HTTPUserAgent}{Used by RStudio Package Manager (RSPM).}
 
