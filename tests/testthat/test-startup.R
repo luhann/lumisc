@@ -1,5 +1,3 @@
-context("r startup")
-
 test_that("correct startup options are set", {
   set_startup_options()
   startup = options()

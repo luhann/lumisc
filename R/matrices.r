@@ -50,11 +50,6 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
   }
 
   if (coerce == TRUE) {
-    rlang::inform(
-      glue::glue("coerce == TRUE, will attempt to coerce input to square matrix."),
-      class = "coercion"
-    )
-
     if (sqrt(length(x)) %% 1 != 0) {
       rlang::abort(
         glue::glue("Vector length cannot be coerced to square matrix"),

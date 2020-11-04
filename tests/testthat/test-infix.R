@@ -1,5 +1,3 @@
-context("infix")
-
 test_that("output is of correct type", {
   data = data.frame(col1 = 1:10, col2 = 11:20)
 

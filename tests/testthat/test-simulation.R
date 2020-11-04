@@ -1,8 +1,6 @@
-context("simulations")
-
 test_that("output is of expected type", {
   expect_type(rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2)), "double")
-  expect_that(rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2)), is_a("matrix"))
+  expect_equal(class(rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2))), class(matrix()))
 })
 
 test_that("function generates correct error", {

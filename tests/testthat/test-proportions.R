@@ -1,5 +1,3 @@
-context("proportions functions")
-
 test_that("fails with correct error", {
   data = data.frame(id = rep(1:10, times = 2L), count = rep(1:5, times = 4L))
   char = matrix(rep(c("a", "b", "c"), times = 3), nrow = 3)
