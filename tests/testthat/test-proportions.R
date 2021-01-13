@@ -5,12 +5,6 @@ test_that("fails with correct error", {
   expect_error(return_proportions(data, NULL), "length zero$")
   expect_error(return_proportions(data, "no_in"), class = "invalid_index_error")
   expect_error(return_proportions(data, 3L), class = "invalid_index_error")
-
-  expect_error(diversity(char, index = "shannon"), class = "invalid_type_error")
-})
-
-test_that("displays correct warnings", {
-  expect_message(diversity(1:9, index = "shannon"), regexp = "coerce to matrix")
 })
 
 test_that("returns correct result", {
@@ -19,5 +13,4 @@ test_that("returns correct result", {
 
   expect_equal(nrow(return_proportions(data, "count")), 6L)
   expect_equal(nrow(return_proportions(data, NA)), 1L)
-  expect_equal(diversity(num_matrix, index = "shannon"), -sum(num_matrix / rowSums(num_matrix) * log(num_matrix / rowSums(num_matrix))))
 })

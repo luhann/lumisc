@@ -91,10 +91,21 @@ q = function(save = "no", ...) {
 #'
 #' @name view
 #' @param x An R object which can be coerced to a data frame with non-zero numbers of rows and columns.
-#' @param title Title for viewer window.  Defaults to name of 'x' prefixed by 'Data:'.
+#' @param title Title for viewer window. Defaults to name of 'x' prefixed by 'Data:'.
 #' @export
 view = function(x, title) {
   utils::View(x, title)
+}
+
+#' view_last
+#'
+#' Invoke a spreadsheet-style data viewer on the last R object interacted with.
+#'
+#' @name view_last
+#' @param title Title for viewer window. Defaults to name of 'x' prefixed by 'Data:'.
+#' @export
+view_last = function(title) {
+  utils::View(.Last.value, title)
 }
 
 # switchv

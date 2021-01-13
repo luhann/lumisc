@@ -9,7 +9,7 @@ view(x, title)
 \arguments{
 \item{x}{An R object which can be coerced to a data frame with non-zero numbers of rows and columns.}
 
-\item{title}{Title for viewer window.  Defaults to name of 'x' prefixed by 'Data:'.}
+\item{title}{Title for viewer window. Defaults to name of 'x' prefixed by 'Data:'.}
 }
 \description{
 Invoke a spreadsheet-style data viewer on a matrix-like R object.
