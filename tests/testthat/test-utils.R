@@ -10,6 +10,9 @@ test_that("output is of correct type", {
   expect_type(get_colref(data, "col1"), "integer")
 
   expect_type(lumiscversion(), "character")
+
+expect_type(create_list(c("test", "names")), "list")
+expect_type(create_list(c(1, 2)), "list")
 })
 
 test_that("output is same type as input", {

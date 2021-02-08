@@ -137,6 +137,18 @@ switchv = function(EXPR, ...) {
   result
 }
 
+#' create_list
+#'
+#' Create an empty list that is length \code{names} and with each element named by the vector of names provided. This is
+#' shorthand for creating an empty list and then assigning it names.
+#'
+#' @param names A character or integer vector of names to be assigned to list.
+#' @return An empty named list of length \code{names}.
+#'
+#' @export
+create_list = function(names) {
+  stats::setNames(vector(mode = "list", length = length(names)), names)
+}
 
 #'
 #' Installed version of R/lumisc
