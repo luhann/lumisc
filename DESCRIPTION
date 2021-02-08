@@ -9,10 +9,10 @@ Depends: R (>= 3.5)
 Imports:
     rlang (>= 0.3),
     glue (>= 1.0),
-    ggplot2 (>= 3.1),
     data.table (>= 1.0),
     broom (>= 0.5)
 Suggests: 
+    ggplot2 (>= 3.1),
     languageserver (>= 0.3),
     styler (>= 1.0),
     testthat (>= 2.1),
