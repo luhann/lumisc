@@ -27,7 +27,7 @@ If you find a bug, please file a minimal reproducible example in the
 
 ## Current Work
 
-- I am currently working on writing tests for all of the functions already in the package using the [testthat](https://testthat.r-lib.org/) package.
+- I am currently working on writing tests for all of the functions already in the package using the [tinytest](https://github.com/markvanderloo/tinytest) package.
 
 ## Contributing
 
