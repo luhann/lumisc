@@ -1,6 +1,6 @@
 Type: Package
 Package: lumisc
-Title: Miscellaneous Functions To Help With Data Analysis
+Title: Miscellaneous Functions to Help With Data Analysis
 Version: 0.0.2
 Authors@R: person("Luke", "Hannan", email = "luke@lukehannan.com", role = c("aut", "cre"))
 Description: A collection of R functions that have been written to be generic and to help 
