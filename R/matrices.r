@@ -66,3 +66,29 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
     return(FALSE)
   }
 }
+
+#' colVars
+#'
+#' Computes the column wise variances on a given matrix.
+#'
+#' @param mat Matrix containing numeric values
+#' @param coerce Boolean indicating whether to attempt to coerce the input into a matrix
+#' @name colVars
+#' @export
+colVars = function(mat, coerce = FALSE) {
+  UseMethod("colVars")
+}
+
+#' @export
+colVars.default = function(mat, coerce = FALSE) {
+  rlang::abort(
+    glue::glue("Mode not defined for type: ({typeof(x)})."),
+    class = "invalid_type_error",
+    val_type = typeof(mat)
+  )
+}
+
+#' @export
+colVars.matrix = function(mat, coerce = FALSE) {
+  apply(mat, MARGIN = 2, stats::var, na.rm = TRUE)
+}
