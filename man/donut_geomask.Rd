@@ -4,7 +4,7 @@
 \alias{donut_geomask}
 \title{Donut Geomasking}
 \usage{
-donut_geomask(xcoords, ycoords, min_dist = 5, max_dist = 10)
+donut_geomask(xcoords, ycoords, min_dist = 5, max_dist = 10, units = "m")
 }
 \arguments{
 \item{xcoords}{X coordinates to transform}
@@ -14,6 +14,9 @@ donut_geomask(xcoords, ycoords, min_dist = 5, max_dist = 10)
 \item{min_dist}{The minimum distance the new transformed points must be from the original point}
 
 \item{max_dist}{The maximum distance the new transformed points must be from the original point}
+
+\item{units}{The units to do the transformation in by default meters, else will perform transformation on coordinate
+data}
 }
 \value{
 A list containing new x and y coordinate vectors

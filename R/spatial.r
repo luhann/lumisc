@@ -10,22 +10,30 @@
 #' @param ycoords Y coordinates to transform
 #' @param min_dist The minimum distance the new transformed points must be from the original point
 #' @param max_dist The maximum distance the new transformed points must be from the original point
+#' @param units The units to do the transformation in by default meters, else will perform transformation on coordinate
+#' data
 #' @return A list containing new x and y coordinate vectors
 #' @author Maia Lesosky
 #' @author Luke Hannan
 #' @export
-donut_geomask = function(xcoords, ycoords, min_dist = 5, max_dist = 10) {
+donut_geomask = function(xcoords, ycoords, min_dist = 5, max_dist = 10, units = "m") {
 
   # check
   if (length(xcoords) != length(ycoords)) {
-    rlang::abort("x and y coordinates different lengths, please try again")
+    stop("x and y coordinates different lengths, please try again")
   }
 
   if (min_dist >= max_dist) {
-    rlang::abort("A donut, not an involution, please.")
+    stop("A donut, not an involution, please.")
   }
-  # how do you exit function early?
 
+  # convert distance in meters to gps distance
+  # 1° = 111 111m
+  # 0.00001° = 1.11 m
+  if (units == "m") {
+    min_dist = min_dist / 111000
+    max_dist = max_dist / 111000
+  }
 
   # randomly sample distance - should actually sample from uniform and transform, same below
   dis = stats::runif(min = min_dist, max = max_dist, n = length(xcoords))
