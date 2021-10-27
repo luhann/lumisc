@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.r
 \name{switchv}
 \alias{switchv}
-\title{Vectorized version of switch}
+\title{switchv}
 \usage{
 switchv(EXPR, ...)
 }
@@ -15,6 +15,9 @@ switchv(EXPR, ...)
 Vector of returned values.
 }
 \description{
+Vectorized version of switch
+}
+\details{
 Vectorized version of \code{\link[base:switch]{base::switch()}}: just loops over
 input and calls \code{\link[base:switch]{base::switch()}}.
 }

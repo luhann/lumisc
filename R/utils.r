@@ -108,7 +108,8 @@ view_last = function(title) {
   utils::View(.Last.value, title)
 }
 
-# switchv
+#' switchv
+#'
 #' Vectorized version of switch
 #'
 #' Vectorized version of [base::switch()]: just loops over
@@ -150,7 +151,6 @@ create_list = function(names) {
   stats::setNames(vector(mode = "list", length = length(names)), names)
 }
 
-#'
 #' Installed version of R/lumisc
 #'
 #' Print the version number of the currently installed version of R/lumisc.
