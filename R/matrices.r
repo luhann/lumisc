@@ -13,7 +13,7 @@ is_orthogonal = function(x, coerce = FALSE) {
 #' @export
 is_orthogonal.default = function(x, coerce = FALSE) {
   rlang::abort(
-    glue::glue("Mode not defined for type: ({typeof(x)})."),
+    glue::glue("Invalid type: ({typeof(x)})."),
     class = "invalid_type_error",
     val_type = typeof(x)
   )
@@ -73,22 +73,60 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
 #'
 #' @param mat Matrix containing numeric values
 #' @param coerce Boolean indicating whether to attempt to coerce the input into a matrix
+#' @param ... Additional parameters to be passed to variance function
 #' @name colVars
 #' @export
-colVars = function(mat, coerce = FALSE) {
+colVars = function(mat, coerce = FALSE, ...) {
   UseMethod("colVars")
 }
 
 #' @export
-colVars.default = function(mat, coerce = FALSE) {
+colVars.default = function(mat, coerce = FALSE, ...) {
   rlang::abort(
-    glue::glue("Mode not defined for type: ({typeof(x)})."),
+    glue::glue("Invalid type: ({typeof(x)})."),
     class = "invalid_type_error",
     val_type = typeof(mat)
   )
 }
 
 #' @export
-colVars.matrix = function(mat, coerce = FALSE) {
-  apply(mat, MARGIN = 2, stats::var, na.rm = TRUE)
+colVars.matrix = function(mat, coerce = FALSE, ...) {
+  apply(mat, MARGIN = 2, stats::var, ...)
+}
+
+#' splitn
+#'
+#' Splits a given matrix into a list of matrices (byrow) into a list of submatrices
+#'
+#' @param mat Matrix containing numeric values
+#' @param r Rows in each submatrix
+#' @param c Cols in each submatrix
+#' @name splitn
+#' @export
+splitn = function(mat, r = 1, c = ncol(mat)) {
+  UseMethod("splitn")
+}
+
+#' @export
+splitn.default = function(mat, r = 1, c = ncol(mat)) {
+  rlang::abort(
+    glue::glue("Splitn not defined for type: ({typeof(x)})."),
+    class = "invalid_type_error",
+    val_type = typeof(mat)
+  )
+}
+
+#' @export
+splitn.matrix = function(mat, r = 1, c = ncol(mat)) {
+  mat = lapply(
+    split(mat, interaction((row(mat) - 1) %/% r + 1, (col(mat) - 1) %/% c + 1)),
+    function(x) {
+      dim(x) = c(r, c)
+      x
+    }
+  )
+
+  names(mat) = NULL
+
+  return(mat)
 }
