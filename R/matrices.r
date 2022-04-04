@@ -83,7 +83,7 @@ colVars = function(mat, coerce = FALSE, ...) {
 #' @export
 colVars.default = function(mat, coerce = FALSE, ...) {
   rlang::abort(
-    glue::glue("Invalid type: ({typeof(x)})."),
+    glue::glue("Invalid type: ({typeof(mat)})."),
     class = "invalid_type_error",
     val_type = typeof(mat)
   )
@@ -92,6 +92,33 @@ colVars.default = function(mat, coerce = FALSE, ...) {
 #' @export
 colVars.matrix = function(mat, coerce = FALSE, ...) {
   apply(mat, MARGIN = 2, stats::var, ...)
+}
+
+#' colMaxs
+#'
+#' Computes the maximum value in each column for a given matrix.
+#'
+#' @param mat Matrix containing numeric values
+#' @param coerce Boolean indicating whether to attempt to coerce the input into a matrix
+#' @param ... Additional parameters to be passed to variance function
+#' @name colMaxs
+#' @export
+colMaxs = function(mat, coerce = FALSE, ...) {
+  UseMethod("colMaxs")
+}
+
+#' @export
+colMaxs.default = function(mat, coerce = FALSE, ...) {
+  rlang::abort(
+    glue::glue("Invalid type: ({typeof(mat)})."),
+    class = "invalid_type_error",
+    val_type = typeof(mat)
+  )
+}
+
+#' @export
+colMaxs.matrix = function(mat, coerce = FALSE, ...) {
+  apply(mat, MARGIN = 2, max, ...)
 }
 
 #' splitn
@@ -110,7 +137,7 @@ splitn = function(mat, r = 1, c = ncol(mat)) {
 #' @export
 splitn.default = function(mat, r = 1, c = ncol(mat)) {
   rlang::abort(
-    glue::glue("Splitn not defined for type: ({typeof(x)})."),
+    glue::glue("Splitn not defined for type: ({typeof(mat)})."),
     class = "invalid_type_error",
     val_type = typeof(mat)
   )

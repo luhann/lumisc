@@ -167,3 +167,16 @@ create_list = function(names) {
 lumiscversion = function() {
   as.character(utils::packageVersion("lumisc"))
 }
+
+#' Return vector as quoted character vector
+#'
+#' Take an existing R vector and add quotes to it for easy manipulation and copy/pasting.
+#'
+#' @param vec A character or integer vector to be quoted
+#' @param collapse An optional character string to separate the results. Not NA_character_.
+#' @return An quoted vector of length \code{vec}.
+#'
+#' @export
+quote_vec = function(vec, collapse = ", ") {
+  paste('"', vec, '"', collapse = collapse, sep = "")
+}

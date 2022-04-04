@@ -24,7 +24,7 @@ set_startup_options(
   warnPartialMatchArgs = TRUE,
   warnPartialMatchDollar = TRUE,
   warnPartialMatchAttr = TRUE,
-  nwarnings = 1e+06,
+  nwarnings = 1000000,
   scipen = 999L,
   browser = "xdg-open",
   HTTPUserAgent = sprintf("R/\%s R (\%s)", getRversion(), paste(getRversion(),
