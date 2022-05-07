@@ -26,6 +26,7 @@ set_startup_options(
   warnPartialMatchAttr = TRUE,
   nwarnings = 1000000,
   scipen = 999L,
+  print.data.table.class = TRUE,
   browser = "xdg-open",
   HTTPUserAgent = sprintf("R/\%s R (\%s)", getRversion(), paste(getRversion(),
     R.version$platform, R.version$arch, R.version$os)),
@@ -70,6 +71,8 @@ set_startup_options(
 \item{nwarnings}{= 1e6,}
 
 \item{scipen}{Default \code{999}. Always print out full numbers, i.e. not 1e2}
+
+\item{print.data.table.class}{Default \code{TRUE}. Always print data.table column class.}
 
 \item{browser}{Default \code{xdg-open}. Browser to open http help documents.}
 
