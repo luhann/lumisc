@@ -180,3 +180,15 @@ lumiscversion = function() {
 quote_vec = function(vec, collapse = ", ") {
   paste('"', vec, '"', collapse = collapse, sep = "")
 }
+
+#' Return hex value of specified rgb colour
+#'
+#' Take an RGB colour value and return a hex colour code
+#'
+#' @param r R channel
+#' @param g G channel
+#' @param b B channel
+#' @return A hex colour code
+#'
+#' @export
+rgb2hex <- function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
