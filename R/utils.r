@@ -55,7 +55,7 @@ get_colref.numeric = function(df, x) {
   # Following the regular coercion rules
   x = as.integer(x)
 
-  if (x > length(colnames(df)) | x < 1) {
+  if (x > length(colnames(df)) || x < 1) {
     rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
   } else {
     return(colnames(df)[x])
@@ -192,3 +192,27 @@ quote_vec = function(vec, collapse = ", ") {
 #'
 #' @export
 rgb2hex <- function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
+
+#' Search for column names that match given string
+#'
+#' @param df Dataframe to search in
+#' @param search_string String to search column names for
+#' @param ignore_case Should case be ignored in column search. Defaults to TRUE
+#' @return A character vector of column names that match search
+#'
+#' @export
+col_search = function(df, search_string, ignore_case = TRUE) {
+  grep(search_string, colnames(df), value = TRUE, perl = TRUE, ignore.case = ignore_case)
+}
+
+#' Create dir if it doesn't exist
+#'
+#' If supplied a filepath with multiple directories will create all parent directories
+#'
+#' @param name Name of directory
+#' @export
+create_dir = function(name) {
+  if (!dir.exists(name)) {
+    dir.create(name, recursive = TRUE)
+  }
+}

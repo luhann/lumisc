@@ -1,7 +1,8 @@
-#' @title Set Nice Startup Options
+#' Set Nice Startup Options
 #'
 #' Sets nicer options. All arguments are passed to the \code{options} function.
 #' This function also sets \code{ipck = TRUE} in \code{rc.settings}.
+#'
 #' @param digits Default \code{4}
 #' @param bitmapType Default "cairo".
 #' @param show.signif.stars Default \code{FALSE}
@@ -20,7 +21,7 @@
 #' @param warnPartialMatchAttr = Default \code{TRUE}. Warns if partial matching is used to extract attributes via attr.
 #' @param nwarnings = 1e6,
 #' @param scipen Default \code{999}. Always print out full numbers, i.e. not 1e2
-#' @param print.data.table.class Default \code{TRUE}. Always print data.table column class.
+#' @param datatable.print.class Default \code{TRUE}. Always print data.table column class.
 #' @param browser Default \code{xdg-open}. Browser to open http help documents.
 #' @param HTTPUserAgent Used by RStudio Package Manager (RSPM).
 #' @param download.file.extra Used by RSPM for curl/wget installs, e.g. Rscript.
@@ -44,7 +45,7 @@ set_startup_options = function(digits = 4L,
                                warnPartialMatchAttr = TRUE, # nolint
                                nwarnings = 1e6,
                                scipen = 999L, # nolint
-                               print.data.table.class = TRUE,
+                               datatable.print.class = TRUE,
                                browser = "xdg-open",
                                HTTPUserAgent = sprintf(
                                  "R/%s R (%s)", getRversion(),
@@ -103,7 +104,7 @@ set_startup_options = function(digits = 4L,
     browser = browser,
     HTTPUserAgent = HTTPUserAgent,
     download.file.extra = download.file.extra,
-    print.data.table.class = print.data.table.class, # For printing data.table class
+    datatable.print.class = datatable.print.class, # For printing data.table class
     ...
   )
 }

@@ -2,10 +2,7 @@
 % Please edit documentation in R/startup_options.r
 \name{set_startup_options}
 \alias{set_startup_options}
-\title{Set Nice Startup Options
-
-Sets nicer options. All arguments are passed to the \code{options} function.
-This function also sets \code{ipck = TRUE} in \code{rc.settings}.}
+\title{Set Nice Startup Options}
 \usage{
 set_startup_options(
   digits = 4L,
@@ -26,7 +23,7 @@ set_startup_options(
   warnPartialMatchAttr = TRUE,
   nwarnings = 1000000,
   scipen = 999L,
-  print.data.table.class = TRUE,
+  datatable.print.class = TRUE,
   browser = "xdg-open",
   HTTPUserAgent = sprintf("R/\%s R (\%s)", getRversion(), paste(getRversion(),
     R.version$platform, R.version$arch, R.version$os)),
@@ -72,7 +69,7 @@ set_startup_options(
 
 \item{scipen}{Default \code{999}. Always print out full numbers, i.e. not 1e2}
 
-\item{print.data.table.class}{Default \code{TRUE}. Always print data.table column class.}
+\item{datatable.print.class}{Default \code{TRUE}. Always print data.table column class.}
 
 \item{browser}{Default \code{xdg-open}. Browser to open http help documents.}
 
@@ -83,8 +80,6 @@ set_startup_options(
 \item{...}{Other arguments passed to \code{options}.}
 }
 \description{
-Set Nice Startup Options
-
 Sets nicer options. All arguments are passed to the \code{options} function.
 This function also sets \code{ipck = TRUE} in \code{rc.settings}.
 }
