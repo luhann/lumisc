@@ -191,7 +191,7 @@ quote_vec = function(vec, collapse = ", ") {
 #' @return A hex colour code
 #'
 #' @export
-rgb2hex <- function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
+rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 
 #' Search for column names that match given string
 #'

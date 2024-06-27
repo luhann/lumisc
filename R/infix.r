@@ -17,7 +17,7 @@
 #' Default value for NULL
 #'
 #' Return \code{lhs} if \code{lhs} is not \code{NULL} otherwise returns
-#' code{rhs}
+#' \code{rhs}
 #' @param lhs An object to set if it's null
 #' @param rhs The value to provide if x is null
 #' @name nil

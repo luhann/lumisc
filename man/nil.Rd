@@ -14,7 +14,7 @@ lhs \%||\% rhs
 }
 \description{
 Return \code{lhs} if \code{lhs} is not \code{NULL} otherwise returns
-code{rhs}
+\code{rhs}
 }
 \examples{
 1 \%||\% 2

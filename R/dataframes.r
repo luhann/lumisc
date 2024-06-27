@@ -14,7 +14,7 @@
 write_df = function(list, file, overwrite = TRUE, ...) {
   for (i in seq_len(length(list))) {
     # on the first write we check if overwrite is true and overwrite the file if it exists
-    if (i == 1 & overwrite == TRUE) {
+    if (i == 1 && overwrite == TRUE) {
       utils::write.table(list[[i]], file, row.names = FALSE, col.names = TRUE, sep = ",", append = FALSE, ...)
       utils::write.table("", file, row.names = FALSE, col.names = FALSE, sep = ",", append = TRUE, ...)
       next

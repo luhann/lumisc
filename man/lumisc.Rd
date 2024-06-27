@@ -3,7 +3,6 @@
 \docType{package}
 \name{lumisc}
 \alias{lumisc}
-\alias{_PACKAGE}
 \alias{lumisc-package}
 \title{Personal Collection of Miscellaneous Functions}
 \description{
