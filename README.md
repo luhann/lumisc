@@ -4,8 +4,7 @@
 
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Licence](https://img.shields.io/badge/licence-MIT%20+%20file%20LICENSE-green.svg)](https://choosealicense.com/licenses/mit/)
-[![R build status](https://github.com/luhann/lumisc/workflows/R-CMD-check/badge.svg)](https://github.com/luhann/lumisc/actions)
-
+[![R-CMD-check](https://github.com/luhann/lumisc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/luhann/lumisc/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Overview
