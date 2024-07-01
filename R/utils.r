@@ -216,3 +216,40 @@ create_dir = function(name) {
     dir.create(name, recursive = TRUE)
   }
 }
+
+#' Make an .rproj file in specified directory
+#'
+#' @param path The name of the .Rproj file to create
+#' @export
+create_rproj = function(path) {
+  name = basename(path)
+
+  # if the provided name does not include .Rproj extension add it on
+  if (!grepl(r"{\.rproj$}", name, ignore.case = TRUE)) {
+    name = paste0(name, ".Rproj")
+    if (dirname(path) == ".") {
+      path = name
+    } else {
+      path = paste0(dirname(path), "/", name)
+      create_dir(dirname(path))
+    }
+  }
+
+  if (file.exists(path)) {
+    rlang::inform("Rproj file already exists")
+    invisible(FALSE)
+  } else {
+    rproj = c(
+      "Version:1.0",
+      NA,
+      "RestoreWorkspace:No",
+      "SaveWorkspace:No",
+      "AlwaysSaveHistory:Default",
+      NA,
+      "EnableCodeIndexing:Yes"
+    )
+
+    data.table::fwrite(list(rproj), file = path)
+    invisible(TRUE)
+  }
+}
