@@ -4,7 +4,7 @@ char = matrix(rep(c("a", "b", "c"), times = 3), nrow = 3)
 num_matrix = matrix(1, nrow = 1, ncol = 3)
 
 # test that things error correctly
-expect_error(return_proportions(data, NULL), "length zero$")
+expect_error(return_proportions(data, NULL), "attempt to select less than one element")
 expect_error(return_proportions(data, "no_in"), class = "invalid_index_error")
 expect_error(return_proportions(data, 3L), class = "invalid_index_error")
 
