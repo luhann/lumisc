@@ -9,6 +9,9 @@ create_rproj(path)
 \arguments{
 \item{path}{The name of the .Rproj file to create}
 }
+\value{
+TRUE if file was successfully created
+}
 \description{
 Make an .rproj file in specified directory
 }

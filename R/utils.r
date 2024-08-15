@@ -241,13 +241,13 @@ create_rproj = function(path) {
     invisible(FALSE)
   } else {
     rproj = c(
-      "Version:1.0",
+      "Version: 1.0",
       NA,
-      "RestoreWorkspace:No",
-      "SaveWorkspace:No",
-      "AlwaysSaveHistory:Default",
+      "RestoreWorkspace: No",
+      "SaveWorkspace: No",
+      "AlwaysSaveHistory: Default",
       NA,
-      "EnableCodeIndexing:Yes"
+      "EnableCodeIndexing: Yes"
     )
 
     data.table::fwrite(list(rproj), file = path)
