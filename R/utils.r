@@ -254,3 +254,17 @@ create_rproj = function(path) {
     invisible(TRUE)
   }
 }
+
+#' Return error message and abort if package not found
+#'
+#' @param package The name of the package that to be installed
+check_package = function(package) {
+  if (requireNamespace(package, quietly = TRUE)) {
+    TRUE
+  } else {
+    rlang::abort(
+      glue::glue("{package} is not installed, please install it to use these functions", package = package),
+      class = "package_not_installed"
+    )
+  }
+}
