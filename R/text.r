@@ -24,5 +24,5 @@ count_lines = function(filepath, batch) {
 
   # close file connection
   close(con)
-  return(n)
+  n
 }

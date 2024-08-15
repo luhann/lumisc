@@ -8,11 +8,11 @@
 #' @return A datafram with one entry per category of the variable and its proportion.
 #' @export
 return_proportions = function(dataframe, variable, precision = 2) {
-  if (!variable %in% colnames(dataframe) & typeof(variable) == "character") {
+  if (!variable %in% colnames(dataframe) && typeof(variable) == "character") {
     rlang::abort(glue::glue("Column \"{variable}\" not found in dataframe."), class = "invalid_index_error")
   }
 
-  if (!variable %in% seq_len(ncol(dataframe)) & typeof(variable) == "integer") {
+  if (!variable %in% seq_len(ncol(dataframe)) && typeof(variable) == "integer") {
     rlang::abort(glue::glue("Column number {variable} not found in dataframe."), class = "invalid_index_error")
   }
 

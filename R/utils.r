@@ -58,7 +58,7 @@ get_colref.numeric = function(df, x) {
   if (x > length(colnames(df)) || x < 1) {
     rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
   } else {
-    return(colnames(df)[x])
+    colnames(df)[x]
   }
 }
 
@@ -67,7 +67,7 @@ get_colref.character = function(df, x) {
   if (x %in% colnames(df) != TRUE) {
     rlang::abort(glue::glue("Column \"{x}\" not found in supplied dataframe."), class = "invalid_index_error")
   } else {
-    return(which(colnames(df) == x))
+    which(colnames(df) == x)
   }
 }
 
@@ -220,6 +220,7 @@ create_dir = function(name) {
 #' Make an .rproj file in specified directory
 #'
 #' @param path The name of the .Rproj file to create
+#' @return TRUE if file was successfully created
 #' @export
 create_rproj = function(path) {
   name = basename(path)
