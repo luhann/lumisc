@@ -22,8 +22,8 @@ expect_true(is.list(create_list(c("test", "names"))))
 expect_true(is.list(create_list(c(1, 2))))
 
 
-# getmode tests
-expect_true(is.integer(getmode(1:10)))
-expect_true(is.character(getmode(c("a", "b", "c", "a"))))
-expect_true(is.character(getmode(c("a", "b", "c", "a"))))
-expect_error(getmode(c(TRUE, TRUE, FALSE)), class = "invalid_type_error")
+# mode tests
+expect_true(is.integer(mode(1:10)))
+expect_true(is.character(mode(c("a", "b", "c", "a"))))
+expect_true(is.character(mode(c("a", "b", "c", "a"))))
+expect_error(mode(c(TRUE, TRUE, FALSE)), class = "invalid_type_error")

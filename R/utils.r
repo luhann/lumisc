@@ -3,14 +3,14 @@
 #' Returns the mode (number that occurs the most) of a given vector.
 #'
 #' @param x Vector you wish to evaluate.
-#' @name getmode
+#' @name mode
 #' @export
-getmode = function(x) {
-  UseMethod("getmode")
+mode = function(x) {
+  UseMethod("mode")
 }
 
 #' @export
-getmode.default = function(x) {
+mode.default = function(x) {
   rlang::abort(
     glue::glue("Mode not defined for type: ({typeof(x)})."),
     class = "invalid_type_error",
@@ -19,17 +19,17 @@ getmode.default = function(x) {
 }
 
 #' @export
-getmode.numeric = function(x) {
+mode.numeric = function(x) {
   ux = unique(x)
   tab = tabulate(match(x, ux))
   ux[tab == max(tab)]
 }
 
 #' @export
-getmode.factor = getmode.numeric
+mode.factor = mode.numeric
 
 #' @export
-getmode.character = getmode.numeric
+mode.character = mode.numeric
 
 
 #' get_colref
