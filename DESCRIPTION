@@ -1,18 +1,17 @@
 Type: Package
 Package: lumisc
 Title: Miscellaneous Functions to Help With Data Analysis
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: person("Luke", "Hannan", email = "luke@lukehannan.com", role = c("aut", "cre"))
 Description: A collection of R functions that have been written to be generic and to help 
     for a wide-variety of data-analysis workflows.
 Depends: R (>= 3.5)
 Imports:
     rlang (>= 0.3),
-    glue (>= 1.0),
-    data.table (>= 1.0),
-    broom (>= 0.5)
+    data.table (>= 1.0)
 Suggests: 
     ggplot2 (>= 3.1),
+    broom (>= 0.5),
     languageserver (>= 0.3),
     styler (>= 1.0),
     tinytest (>= 1.0)

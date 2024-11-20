@@ -17,6 +17,10 @@ estimate_plot = function(model_list, model_names, coefficient = NULL) {
     rlang::abort("Package \"ggplot2\" needed for this function to work. Please install it.")
   }
 
+  if (!requireNamespace("broom", quietly = TRUE)) {
+    rlang::abort("Package \"broom\" needed for this function to work. Please install it.")
+  }
+
   model_list = lapply(model_list, broom::tidy, conf.int = TRUE)
 
   data.table::setattr(model_list, "names", model_names)

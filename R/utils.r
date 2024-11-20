@@ -12,7 +12,7 @@ mode = function(x) {
 #' @export
 mode.default = function(x) {
   rlang::abort(
-    glue::glue("Mode not defined for type: ({typeof(x)})."),
+    paste("Mode not defined for type:", typeof(x)),
     class = "invalid_type_error",
     val_type = typeof(x)
   )
@@ -46,7 +46,7 @@ get_colref = function(df, x) {
 
 #' @export
 get_colref.default = function(df, x) {
-  rlang::abort(glue::glue("Can't access column using given type ({typeof(x)})."), class = "invalid_type_error")
+  rlang::abort(paste("Can't access column using given type:", typeof(x)), class = "invalid_type_error")
 }
 
 #' @export
@@ -65,7 +65,7 @@ get_colref.numeric = function(df, x) {
 #' @export
 get_colref.character = function(df, x) {
   if (x %in% colnames(df) != TRUE) {
-    rlang::abort(glue::glue("Column \"{x}\" not found in supplied dataframe."), class = "invalid_index_error")
+    rlang::abort(paste("Column", x, "not found in supplied dataframe."), class = "invalid_index_error")
   } else {
     which(colnames(df) == x)
   }
@@ -263,7 +263,7 @@ check_package = function(package) {
     TRUE
   } else {
     rlang::abort(
-      glue::glue("{package} is not installed, please install it to use these functions", package = package),
+      paste(package, "is not installed, please install it to use these functions"),
       class = "package_not_installed"
     )
   }
