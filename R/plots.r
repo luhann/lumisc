@@ -13,13 +13,8 @@ estimate_plot = function(model_list, model_names, coefficient = NULL) {
   # bind term to null to pass R CMD CHECK for data.table
   term = NULL
 
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    rlang::abort("Package \"ggplot2\" needed for this function to work. Please install it.")
-  }
-
-  if (!requireNamespace("broom", quietly = TRUE)) {
-    rlang::abort("Package \"broom\" needed for this function to work. Please install it.")
-  }
+  check_package("ggplot2")
+  check_package("broom")
 
   model_list = lapply(model_list, broom::tidy, conf.int = TRUE)
 
