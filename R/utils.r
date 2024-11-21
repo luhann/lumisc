@@ -250,7 +250,39 @@ create_rproj = function(path) {
       "EnableCodeIndexing: Yes"
     )
 
-    data.table::fwrite(list(rproj), file = path)
+    data.table::fwrite(list(rproj), file = path, quote = FALSE)
+    invisible(TRUE)
+  }
+}
+
+#' Make an .lintr file in specified directory
+#'
+#' @param path The path to place the .lintr file
+#' @return TRUE if file was successfully created
+#' @export
+create_lintr = function(path) {
+  if (missing(path)) {
+    path = "."
+  }
+
+  path = file.path(path, ".lintr")
+
+  create_dir(dirname(path))
+
+  if (file.exists(path)) {
+    rlang::inform(".lintr file already exists")
+    invisible(FALSE)
+  } else {
+    lintr = c(
+      "linters: linters_with_defaults(",
+      "  line_length_linter = line_length_linter(120),",
+      "  assignment_linter = NULL,",
+      "  object_usage_linter = NULL,",
+      "  commented_code_linter = NULL)",
+      "encoding: \"UTF-8\""
+    )
+
+    data.table::fwrite(list(lintr), file = path, quote = FALSE)
     invisible(TRUE)
   }
 }

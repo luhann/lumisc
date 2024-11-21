@@ -1,5 +1,5 @@
 ^lumisc\.Rproj$
 ^\.Rproj\.user$
 ^revdep$
-.lintr
+\.lintr
 ^\.github$

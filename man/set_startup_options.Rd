@@ -21,7 +21,7 @@ set_startup_options(
   warnPartialMatchArgs = TRUE,
   warnPartialMatchDollar = TRUE,
   warnPartialMatchAttr = TRUE,
-  nwarnings = 1000000,
+  nwarnings = 1e+06,
   scipen = 999L,
   datatable.print.class = TRUE,
   browser = "xdg-open",
