@@ -1,3 +1,32 @@
+#' Proportions
+#'
+#' Calculate proportions for a given data.frame, this extends \code{proportions} to work on data.frames.
+#'
+#' @name proportions
+#' @param x a data.frame containing only numeric entries
+#' @param margin a vector giving the margins to split by.
+#' E.g., for a data.frame '1' indicates rows, '2' indicates columns.
+#' @export
+proportions = function(x, margin = NULL) {
+  UseMethod("proportions")
+}
+
+#' @export
+proportions.data.frame = function(x, margin = NULL) {
+  # here we convert to matrix so marginSums and sweep can work
+  # this will error if there are non-numeric entries in the matrix
+  # I am ok with that
+  x = as.matrix(x)
+
+  if (length(margin))
+    out = sweep(x, margin, marginSums(x, margin), `/`, check.margin = FALSE)
+  else out = x / sum(x)
+
+  data.table::as.data.table(out)
+}
+
+
+
 #' Write Dataframes
 #'
 #' Write a list of rectangular dataframes to a single csv keeping column names, and appending a single space between
