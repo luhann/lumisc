@@ -23,3 +23,8 @@ expect_true(is.integer(mode(1:10)))
 expect_true(is.character(mode(c("a", "b", "c", "a"))))
 expect_true(is.character(mode(c("a", "b", "c", "a"))))
 expect_error(mode(c(TRUE, TRUE, FALSE)), class = "invalid_type_error")
+
+# is_date tests
+expect_true(is_date(as.Date("2021-10-11")))
+expect_false(is_date("2021-10-11"))
+expect_error(is_date(as.Date("not a date")))

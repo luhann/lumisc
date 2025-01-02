@@ -1,3 +1,14 @@
+#' is_date
+#'
+#' Checks to see if the given vector is one of the two base R date objects (Date, POSIXt)
+#'
+#' @param x Vector you wish to check is a date.
+#' @name is_date
+#' @export
+is_date = function(x) {
+  inherits(x, c("Date", "POSIXt"))
+}
+
 #' Mode
 #'
 #' Returns the mode (number that occurs the most) of a given vector.
