@@ -151,23 +151,6 @@ create_list = function(names) {
   stats::setNames(vector(mode = "list", length = length(names)), names)
 }
 
-#' Installed version of R/lumisc
-#'
-#' Print the version number of the currently installed version of R/lumisc.
-#'
-#' @export
-#' @return
-#' A character string with the version number of the currently installed
-#'   version of R/lumisc.
-#'
-#' @examples
-#' lumiscversion()
-#' @keywords
-#' print
-lumiscversion = function() {
-  as.character(utils::packageVersion("lumisc"))
-}
-
 #' Return vector as quoted character vector
 #'
 #' Take an existing R vector and add quotes to it for easy manipulation and copy/pasting.

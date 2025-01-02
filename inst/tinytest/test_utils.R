@@ -14,13 +14,9 @@ expect_error(get_colref(data, TRUE), class = "invalid_type_error")
 expect_error(get_colref(data, 3L), class = "invalid_index_error")
 expect_error(get_colref(data, "col7"), class = "invalid_index_error")
 
-# lumiscversion tests
-expect_true(is.character(lumiscversion()))
-
 # create list tests
 expect_true(is.list(create_list(c("test", "names"))))
 expect_true(is.list(create_list(c(1, 2))))
-
 
 # mode tests
 expect_true(is.integer(mode(1:10)))
