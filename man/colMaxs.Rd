@@ -4,12 +4,10 @@
 \alias{colMaxs}
 \title{colMaxs}
 \usage{
-colMaxs(mat, coerce = FALSE, ...)
+colMaxs(mat, ...)
 }
 \arguments{
 \item{mat}{Matrix containing numeric values}
-
-\item{coerce}{Boolean indicating whether to attempt to coerce the input into a matrix}
 
 \item{...}{Additional parameters to be passed to variance function}
 }

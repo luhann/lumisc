@@ -16,7 +16,7 @@ proportions.data.frame = function(x, margin = NULL) {
   # here we convert to matrix so marginSums and sweep can work
   # this will error if there are non-numeric entries in the matrix
   # I am ok with that
-  x = as.matrix(x)
+  x = base::as.matrix(x)
 
   if (length(margin))
     out = sweep(x, margin, marginSums(x, margin), `/`, check.margin = FALSE)

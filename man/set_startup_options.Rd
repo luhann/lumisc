@@ -17,7 +17,7 @@ set_startup_options(
   mc.cores = max(1L, parallel::detectCores() - 1L),
   error = "rlang",
   menu.graphics = FALSE,
-  continue = "... ",
+  continue = "-_- ",
   warnPartialMatchArgs = TRUE,
   warnPartialMatchDollar = TRUE,
   warnPartialMatchAttr = TRUE,

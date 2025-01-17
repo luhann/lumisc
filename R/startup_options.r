@@ -39,7 +39,7 @@ set_startup_options = function(digits = 4L,
                                mc.cores = max(1L, parallel::detectCores() - 1L),
                                error = "rlang",
                                menu.graphics = FALSE,
-                               continue = "... ",
+                               continue = "-_- ",
                                warnPartialMatchArgs = TRUE, # nolint
                                warnPartialMatchDollar = TRUE, # nolint
                                warnPartialMatchAttr = TRUE, # nolint

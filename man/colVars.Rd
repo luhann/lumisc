@@ -4,12 +4,10 @@
 \alias{colVars}
 \title{colVars}
 \usage{
-colVars(mat, coerce = FALSE, ...)
+colVars(mat, ...)
 }
 \arguments{
 \item{mat}{Matrix containing numeric values}
-
-\item{coerce}{Boolean indicating whether to attempt to coerce the input into a matrix}
 
 \item{...}{Additional parameters to be passed to variance function}
 }

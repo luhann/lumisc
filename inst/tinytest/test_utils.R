@@ -28,3 +28,32 @@ expect_error(mode(c(TRUE, TRUE, FALSE)), class = "invalid_type_error")
 expect_true(is_date(as.Date("2021-10-11")))
 expect_false(is_date("2021-10-11"))
 expect_error(is_date(as.Date("not a date")))
+
+# switchv tests
+expect_equal(
+  switchv(c("horse", "fish", "cat", "bug"), horse = "fast", cat = "cute", "what?"),
+  c("fast", "what?", "cute", "what?")
+)
+
+# quote_vec tests
+expect_equal(1L, length(quote_vec(letters)))
+
+# rgb2hex tests
+expect_equal("#FFFFFF", rgb2hex(255, 255, 255))
+
+# col_search tests
+expect_equal(character(0), col_search(iris, "test"))
+expect_equal("Sepal.Width", col_search(iris, "Sepal.Width"))
+
+# check_package tests
+# use a fictional package
+expect_error(lumisc:::check_package("pkg_doesnt_exist"), class = "package_not_installed")
+
+# write files tests
+tmp = tempdir()
+on.exit(unlink(tmp))
+
+create_lintr(file.path(tmp))
+create_rproj(file.path(tmp, "tmp"))
+expect_true(file.exists(file.path(tmp, ".lintr")))
+expect_true(file.exists(file.path(tmp, "tmp.Rproj")))

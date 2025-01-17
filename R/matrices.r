@@ -45,8 +45,6 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
       "Input is not a matrix.\n Use coerce = TRUE to attempt to coerce input into a square matrix.",
       class = "invalid_type_error"
     )
-
-    return(FALSE)
   }
 
   if (coerce == TRUE) {
@@ -72,16 +70,15 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
 #' Computes the column wise variances on a given matrix.
 #'
 #' @param mat Matrix containing numeric values
-#' @param coerce Boolean indicating whether to attempt to coerce the input into a matrix
 #' @param ... Additional parameters to be passed to variance function
 #' @name colVars
 #' @export
-colVars = function(mat, coerce = FALSE, ...) {
+colVars = function(mat, ...) {
   UseMethod("colVars")
 }
 
 #' @export
-colVars.default = function(mat, coerce = FALSE, ...) {
+colVars.default = function(mat, ...) {
   rlang::abort(
     paste("Invalid type:", typeof(mat)),
     class = "invalid_type_error",
@@ -90,7 +87,7 @@ colVars.default = function(mat, coerce = FALSE, ...) {
 }
 
 #' @export
-colVars.matrix = function(mat, coerce = FALSE, ...) {
+colVars.matrix = function(mat, ...) {
   apply(mat, MARGIN = 2, stats::var, ...)
 }
 
@@ -99,16 +96,15 @@ colVars.matrix = function(mat, coerce = FALSE, ...) {
 #' Computes the maximum value in each column for a given matrix.
 #'
 #' @param mat Matrix containing numeric values
-#' @param coerce Boolean indicating whether to attempt to coerce the input into a matrix
 #' @param ... Additional parameters to be passed to variance function
 #' @name colMaxs
 #' @export
-colMaxs = function(mat, coerce = FALSE, ...) {
+colMaxs = function(mat, ...) {
   UseMethod("colMaxs")
 }
 
 #' @export
-colMaxs.default = function(mat, coerce = FALSE, ...) {
+colMaxs.default = function(mat, ...) {
   rlang::abort(
     paste("Invalid type:", typeof(mat)),
     class = "invalid_type_error"
@@ -116,7 +112,7 @@ colMaxs.default = function(mat, coerce = FALSE, ...) {
 }
 
 #' @export
-colMaxs.matrix = function(mat, coerce = FALSE, ...) {
+colMaxs.matrix = function(mat, ...) {
   apply(mat, MARGIN = 2, max, ...)
 }
 

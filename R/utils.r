@@ -142,7 +142,7 @@ view_last = function(title) {
 switchv = function(EXPR, ...) {
   result = EXPR
 
-  for (i in seq(along = result)) {
+  for (i in seq(along.with = result)) {
     result[i] = switch(EXPR[i], ...)
   }
 
