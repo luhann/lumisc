@@ -3,3 +3,4 @@
 ^revdep$
 \.lintr
 ^\.github$
+^air.toml$
