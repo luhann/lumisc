@@ -281,6 +281,40 @@ create_lintr = function(path) {
   }
 }
 
+#' Make an air.toml file in specified directory
+#'
+#' @param path The path to place the air.toml file
+#' @return TRUE if file was successfully created
+#' @export
+create_air = function(path) {
+  if (missing(path)) {
+    path = "."
+  }
+
+  path = file.path(path, "air.toml")
+
+  create_dir(dirname(path))
+
+  if (file.exists(path)) {
+    rlang::inform("air.toml file already exists")
+    invisible(FALSE)
+  } else {
+    air = c(
+      "[format]",
+      "line-width = 120",
+      "indent-width = 2",
+      "indent-style = \"space\"",
+      "line-ending = \"auto\"",
+      "persistent-line-breaks = true",
+      "exclude = []",
+      "default-exclude = true",
+      "skip = []"
+    )
+    data.table::fwrite(list(air), file = path, quote = FALSE)
+    invisible(TRUE)
+  }
+}
+
 #' Return error message and abort if package not found
 #'
 #' @param package The name of the package that to be installed

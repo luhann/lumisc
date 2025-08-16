@@ -26,5 +26,5 @@ return_proportions = function(dataframe, variable, precision = 2) {
     prop = prop
   )
 
-  return(out)
+  out
 }
