@@ -105,7 +105,9 @@ q = function(save = "no", ...) {
 #' @param title Title for viewer window. Defaults to name of 'x' prefixed by 'Data:'.
 #' @export
 view = function(x, title) {
-  utils::View(x, title)
+  if (interactive()) {
+    utils::View(x, title)
+  }
 }
 
 #' view_last
@@ -116,7 +118,9 @@ view = function(x, title) {
 #' @param title Title for viewer window. Defaults to name of 'x' prefixed by 'Data:'.
 #' @export
 view_last = function(title) {
-  utils::View(.Last.value, title)
+  if (interactive()) {
+    utils::View(.Last.value, title)
+  }
 }
 
 #' switchv
