@@ -273,7 +273,7 @@ create_lintr = function(path) {
   } else {
     lintr = c(
       "linters: linters_with_defaults(",
-      "  line_length_linter = line_length_linter(120),",
+      "  line_length_linter = line_length_linter(128),",
       "  assignment_linter = NULL,",
       "  object_usage_linter = NULL,",
       "  commented_code_linter = NULL)",
@@ -305,7 +305,7 @@ create_air = function(path) {
   } else {
     air = c(
       "[format]",
-      "line-width = 120",
+      "line-width = 128",
       "indent-width = 2",
       "indent-style = \"space\"",
       "line-ending = \"auto\"",
