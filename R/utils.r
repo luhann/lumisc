@@ -196,11 +196,16 @@ rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 #' @param df Dataframe to search in
 #' @param search_string String to search column names for
 #' @param ignore_case Should case be ignored in column search. Defaults to TRUE
-#' @return A character vector of column names that match search
+#' @return A character vector of column names that match the search string
+#'
+#' @details
+#' When search_string is a character vector, the regex is constructed by collapsing all
+#' elements with "|" to match any of the provided strings.
 #'
 #' @export
 col_search = function(df, search_string, ignore_case = TRUE) {
-  grep(search_string, colnames(df), value = TRUE, perl = TRUE, ignore.case = ignore_case)
+  matches = unique(paste(search_string, collapse = "|"))
+  grep(matches, colnames(df), value = TRUE, perl = TRUE, ignore.case = ignore_case)
 }
 
 #' Create dir if it doesn't exist

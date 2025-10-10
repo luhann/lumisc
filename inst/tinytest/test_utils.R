@@ -44,6 +44,8 @@ expect_equal("#FFFFFF", rgb2hex(255, 255, 255))
 # col_search tests
 expect_equal(character(0), col_search(iris, "test"))
 expect_equal("Sepal.Width", col_search(iris, "Sepal.Width"))
+expect_equal("Sepal.Width", col_search(iris, c("Sepal.Width", "test")))
+expect_equal(character(0), col_search(iris, c("test", "test2")))
 
 # check_package tests
 # use a fictional package

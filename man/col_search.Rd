@@ -14,8 +14,12 @@ col_search(df, search_string, ignore_case = TRUE)
 \item{ignore_case}{Should case be ignored in column search. Defaults to TRUE}
 }
 \value{
-A character vector of column names that match search
+A character vector of column names that match the search string
 }
 \description{
 Search for column names that match given string
+}
+\details{
+When search_string is a character vector, the regex is constructed by collapsing all
+elements with "|" to match any of the provided strings.
 }
