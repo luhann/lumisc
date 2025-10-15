@@ -1,3 +1,61 @@
+#' Search for column names that match given string
+#'
+#' @param df Dataframe to search in
+#' @param search_string String to search column names for
+#' @param ignore_case Should case be ignored in column search. Defaults to TRUE
+#' @return A character vector of column names that match the search string
+#'
+#' @details
+#' When search_string is a character vector, the regex is constructed by collapsing all
+#' elements with "|" to match any of the provided strings.
+#'
+#' @export
+col_search = function(df, search_string, ignore_case = TRUE) {
+  matches = unique(paste(search_string, collapse = "|"))
+  grep(matches, colnames(df), value = TRUE, perl = TRUE, ignore.case = ignore_case)
+}
+
+
+#' get_colref
+#'
+#' Returns the column number that corresponds to a given column name or vice-versa if a number is supplied
+#'
+#' @param df The dataframe to evaluate
+#' @param x The column name (in string format) or column number (integer format) that you wish to evaluate
+#' @name get_colref
+#' @export
+get_colref = function(df, x) {
+  UseMethod("get_colref", x)
+}
+
+#' @export
+get_colref.default = function(df, x) {
+  rlang::abort(paste("Can't access column using given type:", typeof(x)), class = "invalid_type_error")
+}
+
+#' @export
+get_colref.numeric = function(df, x) {
+  # Coerce all numerics to integer so double inputs still extract a column
+  # Following the regular coercion rules
+  x = as.integer(x)
+
+  if (x > length(colnames(df)) || x < 1) {
+    rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
+  } else {
+    colnames(df)[x]
+  }
+}
+
+#' @export
+get_colref.character = function(df, x) {
+  if (x %in% colnames(df) != TRUE) {
+    rlang::abort(paste("Column", x, "not found in supplied dataframe."), class = "invalid_index_error")
+  } else {
+    which(colnames(df) == x)
+  }
+}
+
+
 #' Proportions
 #'
 #' Calculate proportions for a given data.frame, this extends \code{proportions} to work on data.frames.
@@ -24,7 +82,6 @@ proportions.data.frame = function(x, margin = NULL) {
 
   data.table::as.data.table(out)
 }
-
 
 
 #' Write Dataframes

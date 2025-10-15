@@ -43,45 +43,6 @@ mode.factor = mode.numeric
 mode.character = mode.numeric
 
 
-#' get_colref
-#'
-#' Returns the column number that corresponds to a given column name or vice-versa if a number is supplied
-#'
-#' @param df The dataframe to evaluate
-#' @param x The column name (in string format) or column number (integer format) that you wish to evaluate
-#' @name get_colref
-#' @export
-get_colref = function(df, x) {
-  UseMethod("get_colref", x)
-}
-
-#' @export
-get_colref.default = function(df, x) {
-  rlang::abort(paste("Can't access column using given type:", typeof(x)), class = "invalid_type_error")
-}
-
-#' @export
-get_colref.numeric = function(df, x) {
-  # Coerce all numerics to integer so double inputs still extract a column
-  # Following the regular coercion rules
-  x = as.integer(x)
-
-  if (x > length(colnames(df)) || x < 1) {
-    rlang::abort("Value supplied is outside column range.", class = "invalid_index_error")
-  } else {
-    colnames(df)[x]
-  }
-}
-
-#' @export
-get_colref.character = function(df, x) {
-  if (x %in% colnames(df) != TRUE) {
-    rlang::abort(paste("Column", x, "not found in supplied dataframe."), class = "invalid_index_error")
-  } else {
-    which(colnames(df) == x)
-  }
-}
-
 #' quit
 #'
 #' Quits R without saving the workspace to an image
