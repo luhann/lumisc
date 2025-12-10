@@ -1,4 +1,4 @@
-#  rmvn
+#'  rmvn
 #'
 #' Simulate multivariate normal
 #'

@@ -32,7 +32,7 @@ estimate_plot = function(model_list, model_names, coefficient = NULL) {
   ) +
     ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
     ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") +
-    ggplot2::theme_minimal()
+    theme_patroclus()
 
   invisible(p)
 }
