@@ -1,6 +1,7 @@
-^lumisc\.Rproj$
 ^\.Rproj\.user$
-^revdep$
-\.lintr
-^\.github$
 ^air.toml$
+^\.github$
+^.jj$
+\.lintr
+^lumisc\.Rproj$
+^revdep$
