@@ -1,0 +1,5 @@
+[lint]
+default-exclude = true
+
+[lint.assignment]
+operator = "="
