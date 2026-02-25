@@ -13,7 +13,7 @@
 count_lines = function(filepath, batch) {
   con = file(filepath, open = "r")
   n = 0
-  while (TRUE) {
+  repeat {
     lines = readLines(con, n = batch)
     present = length(lines)
     n = n + present

@@ -40,14 +40,14 @@ is_orthogonal.matrix = function(x, coerce = FALSE) {
 
 #' @export
 is_orthogonal.numeric = function(x, coerce = FALSE) {
-  if (coerce == FALSE) {
+  if (!coerce) {
     rlang::abort(
       "Input is not a matrix.\n Use coerce = TRUE to attempt to coerce input into a square matrix.",
       class = "invalid_type_error"
     )
   }
 
-  if (coerce == TRUE) {
+  if (coerce) {
     if (sqrt(length(x)) %% 1 != 0) {
       rlang::abort(
         "Vector length cannot be coerced to square matrix",

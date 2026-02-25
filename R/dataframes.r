@@ -48,7 +48,7 @@ get_colref.numeric = function(df, x) {
 
 #' @export
 get_colref.character = function(df, x) {
-  if (x %in% colnames(df) != TRUE) {
+  if (!x %in% colnames(df)) {
     rlang::abort(paste("Column", x, "not found in supplied dataframe."), class = "invalid_index_error")
   } else {
     which(colnames(df) == x)
@@ -100,7 +100,7 @@ proportions.data.frame = function(x, margin = NULL) {
 write_df = function(list, file, overwrite = TRUE, ...) {
   for (i in seq_len(length(list))) {
     # on the first write we check if overwrite is true and overwrite the file if it exists
-    if (i == 1 && overwrite == TRUE) {
+    if (i == 1 && overwrite) {
       utils::write.table(list[[i]], file, row.names = FALSE, col.names = TRUE, sep = ",", append = FALSE, ...)
       utils::write.table("", file, row.names = FALSE, col.names = FALSE, sep = ",", append = TRUE, ...)
       next

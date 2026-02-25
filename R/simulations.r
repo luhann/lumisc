@@ -29,7 +29,7 @@
 #' datagen
 rmvn = function(n, mu = 0, cov = matrix(1)) {
   p = length(mu)
-  if (any(is.na(match(dim(cov), p)))) {
+  if (anyNA(match(dim(cov), p))) {
     rlang::abort("cov matrix has incorrect number of dimensions", class = "invalid_dim_error")
   }
   d = chol(cov)

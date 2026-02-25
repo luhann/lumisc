@@ -93,7 +93,7 @@ retrieve_credentials = function(
     )
   }
 
-  if (check_url == TRUE) {
+  if (check_url) {
     if (!check_url(credential$uri)) {
       rlang::abort("The matched uri does not appear to be valid, please check your credentials file.")
     }
