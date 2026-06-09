@@ -59,3 +59,22 @@ create_lintr(file.path(tmp))
 create_rproj(file.path(tmp, "tmp"))
 expect_true(file.exists(file.path(tmp, ".lintr")))
 expect_true(file.exists(file.path(tmp, "tmp.Rproj")))
+
+tmp_file = file.path(tmp, "test_data.rds")
+on.exit(unlink(tmp_file))
+
+# cache_file tests 
+result = cache_file(tmp_file, mtcars[1:5, ])
+
+expect_true(file.exists(tmp_file))
+expect_equal(nrow(result), 5)
+expect_inherits(result, "data.frame")
+
+cached_result = cache_file(tmp_file, stop("Cache failed: Expression was re-evaluated!"))
+expect_equal(cached_result, result)
+
+new_data = mtcars[1:2, ]
+forced_result = cache_file(tmp_file, new_data, force = TRUE)
+
+expect_equal(nrow(forced_result), 2)
+expect_equal(nrow(readRDS(tmp_file)), 2)

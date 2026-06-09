@@ -1,3 +1,35 @@
+#' cache_file
+#'
+#' @param file Path to the cache file.
+#' @param expr The expression to evaluate if the cache doesn't exist.
+#' @param force Logical; if TRUE, re-run the expression even if the file exists.
+#' @param ... Additional arguments passed to saveRDS.
+#'
+#' @export
+cache_file = function(file, expr, force = FALSE, ...) {
+  if (file.exists(file) && !force) {
+    return(readRDS(file))
+  } else {
+    # Evaluate expr in the parent environment
+    object = eval(substitute(expr), envir = parent.frame())
+    saveRDS(object, file, ...)
+    return(object)
+  }
+}
+
+#' create_list
+#'
+#' Create an empty list that is length \code{names} and with each element named by the vector of names provided. This is
+#' shorthand for creating an empty list and then assigning it names.
+#'
+#' @param names A character or integer vector of names to be assigned to list.
+#' @return An empty named list of length \code{names}.
+#'
+#' @export
+create_list = function(names) {
+  stats::setNames(vector(mode = "list", length = length(names)), names)
+}
+
 #' is_date
 #'
 #' Checks to see if the given vector is one of the two base R date objects (Date, POSIXt)
