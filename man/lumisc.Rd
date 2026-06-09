@@ -23,5 +23,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Luke Hannan \email{luke@lukehannan.com}
 
+Authors:
+\itemize{
+  \item Luke Hannan \email{luke@lukehannan.com}
+}
+
 }
 \keyword{internal}
