@@ -4,7 +4,7 @@
 \alias{create_air}
 \title{Make an air.toml file in specified directory}
 \usage{
-create_air(path)
+create_air(path = ".")
 }
 \arguments{
 \item{path}{The path to place the air.toml file}

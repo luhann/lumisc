@@ -4,7 +4,7 @@
 \alias{create_lintr}
 \title{Make an .lintr file in specified directory}
 \usage{
-create_lintr(path)
+create_lintr(path = ".")
 }
 \arguments{
 \item{path}{The path to place the .lintr file}
