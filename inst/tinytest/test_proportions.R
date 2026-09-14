@@ -10,3 +10,8 @@ expect_error(return_proportions(data, 3L), class = "invalid_index_error")
 # returns correct result
 expect_equal(nrow(return_proportions(data, "count")), 6L)
 expect_equal(nrow(return_proportions(data, NA)), 1L)
+
+props = return_proportions(data.frame(v = c("b", "a", "b", NA)), "v")
+expect_equal(props$values, c("a", "b", "NA"))
+expect_equal(props$count, c(1, 2, 1))
+expect_equal(props$prop, c(0.25, 0.5, 0.25))

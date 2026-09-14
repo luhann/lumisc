@@ -16,15 +16,11 @@ return_proportions = function(dataframe, variable, precision = 2) {
     rlang::abort(paste("Column number", variable, "not found in dataframe."), class = "invalid_index_error")
   }
 
-  values = c(names(table(dataframe[[variable]])), "NA")
-  count = as.numeric(table(dataframe[[variable]], useNA = "always"))
-  prop = round(prop.table(count), precision)
+  tab = table(dataframe[[variable]], useNA = "always")
 
-  out = data.table::data.table(
-    values = values,
-    count = count,
-    prop = prop
+  data.table::data.table(
+    values = c(names(tab)[-length(tab)], "NA"),
+    count = as.numeric(tab),
+    prop = round(as.numeric(prop.table(tab)), precision)
   )
-
-  out
 }
