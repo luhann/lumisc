@@ -3,19 +3,25 @@
 #' @param file Path to the cache file.
 #' @param expr The expression to evaluate if the cache doesn't exist.
 #' @param force Logical; if TRUE, re-run the expression even if the file exists.
+#' @param compress Compression passed to saveRDS. Defaults to zstd where R supports it, otherwise gzip.
 #' @param ... Additional arguments passed to saveRDS.
 #'
 #' @export
-cache_file = function(file, expr, force = FALSE, ...) {
+cache_file = function(file, expr, force = FALSE, compress = if (zstd_available()) "zstd" else TRUE, ...) {
   if (file.exists(file) && !force) {
     return(readRDS(file))
   }
 
   tmp = tempfile(tmpdir = dirname(file))
   on.exit(unlink(tmp))
-  saveRDS(expr, tmp, ...)
+  saveRDS(expr, tmp, compress = compress, ...)
   file.rename(tmp, file)
   expr
+}
+
+zstd_available = function() {
+  versions = extSoftVersion()
+  !is.na(versions["zstd"]) && nzchar(versions[["zstd"]])
 }
 
 #' create_list

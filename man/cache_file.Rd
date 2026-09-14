@@ -4,7 +4,13 @@
 \alias{cache_file}
 \title{cache_file}
 \usage{
-cache_file(file, expr, force = FALSE, ...)
+cache_file(
+  file,
+  expr,
+  force = FALSE,
+  compress = if (zstd_available()) "zstd" else TRUE,
+  ...
+)
 }
 \arguments{
 \item{file}{Path to the cache file.}
@@ -12,6 +18,8 @@ cache_file(file, expr, force = FALSE, ...)
 \item{expr}{The expression to evaluate if the cache doesn't exist.}
 
 \item{force}{Logical; if TRUE, re-run the expression even if the file exists.}
+
+\item{compress}{Compression passed to saveRDS. Defaults to zstd where R supports it, otherwise gzip.}
 
 \item{...}{Additional arguments passed to saveRDS.}
 }

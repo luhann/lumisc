@@ -111,6 +111,14 @@ forced_result = cache_file(tmp_file, new_data, force = TRUE)
 
 expect_equal(nrow(forced_result), 2)
 expect_equal(nrow(readRDS(tmp_file)), 2)
+if (lumisc:::zstd_available()) {
+  expect_equal(readBin(tmp_file, "raw", 4), as.raw(c(0x28, 0xb5, 0x2f, 0xfd)))
+}
+gz_file = file.path(tmp, "test_gzip.rds")
+cache_file(gz_file, 1:3, compress = TRUE)
+expect_equal(readBin(gz_file, "raw", 2), as.raw(c(0x1f, 0x8b)))
+expect_equal(readRDS(gz_file), 1:3)
+unlink(gz_file)
 
 # cache_file evaluates in calling environment
 local_val = 42
