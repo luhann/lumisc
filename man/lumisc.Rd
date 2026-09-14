@@ -16,7 +16,7 @@ may prove useful.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://github.com/luhann/lumisc}
+  \item \url{https://github.com/luhann/lumisc}
 }
 
 }
