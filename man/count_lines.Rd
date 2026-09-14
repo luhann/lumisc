@@ -4,20 +4,20 @@
 \alias{count_lines}
 \title{Count Lines}
 \usage{
-count_lines(filepath, batch)
+count_lines(filepath, chunk = 2^20)
 }
 \arguments{
 \item{filepath}{A path to the text file to read}
 
-\item{batch}{The number of lines to read in at one time}
+\item{chunk}{The number of bytes to read in at one time}
 }
 \value{
-An integer indicating number of lines
+The number of lines
 }
 \description{
 Count the number of lines in a given text file
 }
 \details{
-This function counts the lines of a given text file line by line to prevent reading the entire file into memory at
-once. Higher batch numbers generally equal quicker read times.
+This function counts newline bytes in chunks to avoid reading the entire file into memory at once. A final line
+without a trailing newline is counted. Gzip, bzip2 and xz compressed files are read transparently.
 }
