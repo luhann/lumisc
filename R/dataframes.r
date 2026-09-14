@@ -71,6 +71,11 @@ proportions = function(x, margin = NULL, ...) {
 }
 
 #' @export
+proportions.default = function(x, margin = NULL, ...) {
+  base::proportions(x, margin)
+}
+
+#' @export
 proportions.data.frame = function(x, margin = NULL, ...) {
   # here we convert to matrix so marginSums and sweep can work
   # this will error if there are non-numeric entries in the matrix

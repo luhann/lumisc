@@ -4,7 +4,7 @@ df = data.frame(successes = c(10, 10, 10), failures = c(10, 10, 10))
 expect_equivalent(proportions(df), df / 60)
 expect_equivalent(proportions(df, margin = 1), df / 20)
 result_margin2 = proportions(df, margin = 2)
-expect_equivalent(as.data.frame(result_margin2), data.frame(successes = rep(1/3, 3), failures = rep(1/3, 3)))
+expect_equivalent(as.data.frame(result_margin2), data.frame(successes = rep(1 / 3, 3), failures = rep(1 / 3, 3)))
 
 single = data.frame(x = c(3, 7))
 expect_equivalent(proportions(single), single / 10)
@@ -50,3 +50,5 @@ expect_true(file.exists(tmp))
 
 # proportions with ...
 expect_equivalent(proportions(df, margin = NULL), proportions(df))
+expect_equal(proportions(table(c(1, 1, 2))), base::proportions(table(c(1, 1, 2))))
+expect_equal(proportions(matrix(1:4, 2), 1), base::proportions(matrix(1:4, 2), 1))
