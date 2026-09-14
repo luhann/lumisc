@@ -2,33 +2,23 @@
 % Please edit documentation in R/plots.r
 \name{theme_patroclus}
 \alias{theme_patroclus}
-\title{Tufte Maximal Data, Minimal Ink Theme With a Twist}
+\title{Patroclus Theme}
 \usage{
-theme_patroclus(base_size = 11, base_family = "serif", ticks = TRUE)
+theme_patroclus(base_size = 11, mode = c("light", "dark"), ticks = TRUE)
 }
 \arguments{
-\item{base_size}{base font size, given in pts.}
+\item{base_size}{Base font size, given in pts.}
 
-\item{base_family}{base font family}
+\item{mode}{Either "light" or "dark" palette.}
 
 \item{ticks}{\code{logical} Show axis ticks?}
 }
 \description{
-Theme based on Chapter 6 'Data-Ink Maximization and Graphical
-Design' of Edward Tufte \emph{The Visual Display of Quantitative
-Information}. No border, no axis lines, no grids. This theme works
-best in combination with \code{geom_rug} or
-\code{geom_rangeframe}.
+A minimal, Tufte-esque ggplot2 theme using the screen palettes and typefaces of the Patroclus design system: EB
+Garamond for titles, IBM Plex Sans for axis titles, legends and strips, and IBM Plex Mono for tick labels. Discrete
+colour and fill scales default to copper, steel blue and alizarin.
 }
 \note{
-The default font family is set to 'serif' as he uses serif fonts
-for labels in 'The Visual Display of Quantitative Information'.
-The serif font used by Tufte in his books is a variant of Bembo,
-while the sans serif font is Gill Sans. If these fonts are
-installed on your system, then you can use them with the package
-\bold{extrafont}.
-}
-\references{
-Tufte, Edward R. (2001) The Visual Display of
-Quantitative Information, Chapter 6.
+The fonts must be installed and visible to the graphics device (e.g. via systemfonts with ragg); otherwise the device
+falls back to its default family.
 }

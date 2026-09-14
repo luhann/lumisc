@@ -44,49 +44,51 @@ estimate_plot = function(model, model_names = names(model), coefficient = NULL, 
 }
 
 
-#' Tufte Maximal Data, Minimal Ink Theme With a Twist
+#' Patroclus Theme
 #'
-#' Theme based on Chapter 6 'Data-Ink Maximization and Graphical
-#' Design' of Edward Tufte *The Visual Display of Quantitative
-#' Information*. No border, no axis lines, no grids. This theme works
-#' best in combination with \code{geom_rug} or
-#' \code{geom_rangeframe}.
+#' A minimal, Tufte-esque ggplot2 theme using the screen palettes and typefaces of the Patroclus design system: EB
+#' Garamond for titles, IBM Plex Sans for axis titles, legends and strips, and IBM Plex Mono for tick labels. Discrete
+#' colour and fill scales default to copper, steel blue and alizarin.
 #'
 #' @note
-#' The default font family is set to 'serif' as he uses serif fonts
-#' for labels in 'The Visual Display of Quantitative Information'.
-#' The serif font used by Tufte in his books is a variant of Bembo,
-#' while the sans serif font is Gill Sans. If these fonts are
-#' installed on your system, then you can use them with the package
-#' \bold{extrafont}.
+#' The fonts must be installed and visible to the graphics device (e.g. via systemfonts with ragg); otherwise the device
+#' falls back to its default family.
 #'
-#' @inheritParams ggplot2::theme_minimal
+#' @param base_size Base font size, given in pts.
+#' @param mode Either "light" or "dark" palette.
 #' @param ticks \code{logical} Show axis ticks?
 #'
-#' @references Tufte, Edward R. (2001) The Visual Display of
-#' Quantitative Information, Chapter 6.
-#'
 #' @export
-theme_patroclus = function(base_size = 11, base_family = "serif", ticks = TRUE) {
+theme_patroclus = function(base_size = 11, mode = c("light", "dark"), ticks = TRUE) {
   check_package("ggplot2")
 
-  ret = ggplot2::theme_minimal(base_family = base_family, base_size = base_size) +
+  pal = patroclus[[match.arg(mode)]]
+  fonts = patroclus$fonts
+  label = ggplot2::element_text(family = fonts[["sans"]], colour = pal[["muted"]])
+  accents = unname(pal[c("accent", "accent_cool", "accent_meta", "muted")])
+
+  ggplot2::theme_minimal(
+    base_size = base_size,
+    base_family = fonts[["serif"]],
+    header_family = fonts[["serif"]],
+    ink = pal[["text"]],
+    paper = pal[["bg"]],
+    accent = pal[["accent"]]
+  ) +
     ggplot2::theme(
-      legend.background = ggplot2::element_blank(),
-      legend.key = ggplot2::element_blank(),
+      plot.title = ggplot2::element_text(colour = pal[["headline"]]),
+      axis.title = label,
+      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 10)),
+      axis.text = ggplot2::element_text(family = fonts[["mono"]], colour = pal[["muted"]]),
+      axis.line.x = ggplot2::element_line(colour = pal[["line"]], linewidth = 0.1, lineend = "butt"),
+      axis.ticks = if (ticks) ggplot2::element_line(colour = pal[["line"]]) else ggplot2::element_blank(),
+      legend.title = label,
+      legend.text = label,
       legend.position = "bottom",
       legend.box = "vertical",
-      panel.background = ggplot2::element_blank(),
-      panel.border = ggplot2::element_blank(),
+      strip.text = label,
       panel.grid = ggplot2::element_blank(),
-      strip.background = ggplot2::element_blank(),
-      plot.background = ggplot2::element_blank(),
-      axis.title.x = ggplot2::element_text(margin = ggplot2::margin(t = 10)),
-      axis.line = ggplot2::element_blank(),
-      axis.line.x = ggplot2::element_line(linewidth = 0.1, lineend = "butt")
+      palette.colour.discrete = accents,
+      palette.fill.discrete = accents
     )
-  if (!ticks) {
-    ret = ret + ggplot2::theme(axis.ticks = ggplot2::element_blank())
-  }
-  ret
 }

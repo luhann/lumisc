@@ -19,6 +19,12 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
 
   thm_no_ticks = theme_patroclus(ticks = FALSE)
   expect_inherits(thm_no_ticks, "theme")
+  expect_inherits(thm_no_ticks$axis.ticks, "ggplot2::element_blank")
+  expect_inherits(thm$axis.ticks, "ggplot2::element_line")
+
+  dark = theme_patroclus(mode = "dark")
+  expect_equal(dark$plot.background$fill, "#000000")
+  expect_equal(dark$palette.colour.discrete[1], "#cf7d55")
 
   named_plot = estimate_plot(list(x = x, y = y))
   expect_equal(sort(unique(named_plot$data$model)), c("x", "y"))
