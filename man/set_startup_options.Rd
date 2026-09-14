@@ -10,11 +10,10 @@ set_startup_options(
   show.signif.stars = FALSE,
   useFancyQuotes = FALSE,
   width = 88L,
-  Ncpus = max(1L, parallel::detectCores() - 1L),
+  Ncpus = max(1L, parallel::detectCores() - 1L, na.rm = TRUE),
   max.print = 100L,
   servr.daemon = TRUE,
-  max = 10L,
-  mc.cores = max(1L, parallel::detectCores() - 1L),
+  mc.cores = max(1L, parallel::detectCores() - 1L, na.rm = TRUE),
   error = "rlang",
   menu.graphics = FALSE,
   continue = "-_- ",
@@ -41,7 +40,7 @@ set_startup_options(
 
 \item{useFancyQuotes}{Default \code{FALSE}}
 
-\item{width}{Default \code{100}}
+\item{width}{Default \code{88}}
 
 \item{Ncpus}{Default number of CPUs - 1. Used for parallel pkg installs.}
 
@@ -49,23 +48,21 @@ set_startup_options(
 
 \item{servr.daemon}{Default \code{TRUE}. For xaringan presentations}
 
-\item{max}{Default \code{10}. For List printing}
-
 \item{mc.cores}{Default number of CPUs - 1. Used for parallel computing}
 
-\item{error}{Default \code{rlang}. If \code{rlang} is installed, then error = rlang::entrace.}
+\item{error}{Default \code{"rlang"}, which sets \code{rlang::entrace}. Otherwise passed to \code{options} as is.}
 
 \item{menu.graphics}{Default \code{FALSE}. Logical: should graphical menus be used if available?}
 
-\item{continue}{Default \code{... }. Set the prompt used for lines which continue over one line.}
+\item{continue}{Default \code{"-_- "}. Set the prompt used for lines which continue over one line.}
 
 \item{warnPartialMatchArgs}{Default \code{TRUE}. Warn if using partial arguments.}
 
-\item{warnPartialMatchDollar}{= Default \code{TRUE}. Warns if partial matching is used for extraction by $.}
+\item{warnPartialMatchDollar}{Default \code{TRUE}. Warns if partial matching is used for extraction by $.}
 
-\item{warnPartialMatchAttr}{= Default \code{TRUE}. Warns if partial matching is used to extract attributes via attr.}
+\item{warnPartialMatchAttr}{Default \code{TRUE}. Warns if partial matching is used to extract attributes via attr.}
 
-\item{nwarnings}{= 1e6,}
+\item{nwarnings}{Default \code{1e6}.}
 
 \item{scipen}{Default \code{999}. Always print out full numbers, i.e. not 1e2}
 

@@ -18,5 +18,11 @@ opts = options()
 expect_equal(opts[["digits"]], 7L)
 expect_equal(opts[["width"]], 120L)
 
+set_startup_options(bitmapType = "Xlib", error = utils::recover)
+expect_equal(getOption("bitmapType"), "Xlib")
+expect_identical(getOption("error")[[1]], utils::recover)
+set_startup_options(error = NULL)
+expect_null(getOption("error"))
+
 # Restore original options
 options(orig)
