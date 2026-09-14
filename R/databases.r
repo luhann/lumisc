@@ -60,18 +60,18 @@ retrieve_credentials = function(
     )
   }
 
-  # Select only the records with a matching project id.
+  credential = credentials
+
   if (!is.na(project_id)) {
-    credential = credentials[credentials$project_id == project_id, ]
+    credential = credential[credential$project_id == project_id, ]
   }
 
   if (!is.na(uri_name)) {
-    credential = credentials[credentials$uri_name == uri_name, ]
+    credential = credential[credential$uri_name == uri_name, ]
   }
 
-  # If specified, select only the records with a matching username.
   if (!is.na(username)) {
-    credential = credentials[credentials$username == username, ]
+    credential = credential[credential$username == username, ]
   }
 
   # Check that one and only one record matches the project id.
@@ -94,7 +94,7 @@ retrieve_credentials = function(
   }
 
   if (check_url) {
-    if (!check_url(credential$uri)) {
+    if (!is_valid_url(credential$uri)) {
       rlang::abort("The matched uri does not appear to be valid, please check your credentials file.")
     }
   }
@@ -103,7 +103,7 @@ retrieve_credentials = function(
 }
 
 
-check_url = function(url) {
+is_valid_url = function(url) {
   site_regex = "^((http|https|ftp)://)?([A-Za-z0-9-]+\\.)+[A-Za-z]{2,}(:\\d{2,5})?(/\\S*)?$"
   grepl(site_regex, url, perl = TRUE)
 }
