@@ -14,5 +14,6 @@ splitn(mat, r = 1, c = ncol(mat))
 \item{c}{Cols in each submatrix}
 }
 \description{
-Splits a given matrix into a list of matrices (byrow) into a list of submatrices
+Splits a given matrix into a list of submatrices of \code{r} rows and \code{c} columns, ordered by row. When the dimensions are
+not multiples of \code{r} and \code{c}, the blocks along the bottom and right edges are smaller.
 }

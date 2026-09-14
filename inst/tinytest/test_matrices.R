@@ -43,6 +43,15 @@ expect_error(splitn(as.character(mat)), class = "invalid_type_error")
 splits = splitn(mat, r = 5, c = 5)
 expect_equal(length(splits), 4L)
 expect_equal(dim(splits[[1]]), c(5L, 5L))
+expect_equal(splits[[2]], mat[1:5, 6:10])
+expect_equal(splits[[3]], mat[6:10, 1:5])
+
+ragged = splitn(matrix(1:9, 3), r = 2, c = 2)
+expect_equal(lapply(ragged, dim), list(c(2L, 2L), c(2L, 1L), c(1L, 2L), c(1L, 1L)))
+expect_equal(ragged[[4]], matrix(9L))
+
+named = matrix(1:4, 2, dimnames = list(c("a", "b"), c("x", "y")))
+expect_equal(dimnames(splitn(named)[[2]]), list("b", c("x", "y")))
 
 # test colMaxs / colVars with NA
 mat_na = matrix(c(1, NA, 3, 4, 5, 6), nrow = 2)

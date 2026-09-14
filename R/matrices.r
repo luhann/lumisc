@@ -113,7 +113,8 @@ colMaxs.matrix = function(mat, ...) {
 
 #' splitn
 #'
-#' Splits a given matrix into a list of matrices (byrow) into a list of submatrices
+#' Splits a given matrix into a list of submatrices of `r` rows and `c` columns, ordered by row. When the dimensions are
+#' not multiples of `r` and `c`, the blocks along the bottom and right edges are smaller.
 #'
 #' @param mat Matrix containing numeric values
 #' @param r Rows in each submatrix
@@ -135,15 +136,10 @@ splitn.default = function(mat, r = 1, c = ncol(mat)) {
 
 #' @export
 splitn.matrix = function(mat, r = 1, c = ncol(mat)) {
-  mat = lapply(
-    split(mat, interaction((row(mat) - 1) %/% r + 1, (col(mat) - 1) %/% c + 1)),
-    function(x) {
-      dim(x) = c(r, c)
-      x
-    }
+  blocks = expand.grid(j = seq(1, ncol(mat), by = c), i = seq(1, nrow(mat), by = r))
+  Map(
+    \(i, j) mat[i:min(i + r - 1, nrow(mat)), j:min(j + c - 1, ncol(mat)), drop = FALSE],
+    blocks$i,
+    blocks$j
   )
-
-  names(mat) = NULL
-
-  return(mat)
 }
