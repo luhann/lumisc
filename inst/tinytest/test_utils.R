@@ -52,6 +52,7 @@ expect_equal(switchv(c("a", "b", "c"), a = , b = "ab", "other"), c("ab", "ab", "
 expect_equal(1L, length(quote_vec(letters)))
 expect_equal(quote_vec(c("a", "b")), '"a", "b"')
 expect_equal(quote_vec(c("a", "b"), collapse = "; "), '"a"; "b"')
+expect_equal(quote_vec(c('a"b', NA)), '"a\\"b", NA')
 
 # rgb2hex tests
 expect_equal("#FFFFFF", rgb2hex(255, 255, 255))

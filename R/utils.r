@@ -95,11 +95,11 @@ q = function(save = "no", ...) {
 #'
 #' @param vec A character or integer vector to be quoted
 #' @param collapse An optional character string to separate the results. Not NA_character_.
-#' @return An quoted vector of length \code{vec}.
+#' @return A single string of the escaped, quoted elements of \code{vec}; \code{NA} is left unquoted.
 #'
 #' @export
 quote_vec = function(vec, collapse = ", ") {
-  paste('"', vec, '"', collapse = collapse, sep = "")
+  paste(encodeString(vec, quote = '"'), collapse = collapse)
 }
 
 

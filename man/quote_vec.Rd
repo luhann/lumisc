@@ -12,7 +12,7 @@ quote_vec(vec, collapse = ", ")
 \item{collapse}{An optional character string to separate the results. Not NA_character_.}
 }
 \value{
-An quoted vector of length \code{vec}.
+A single string of the escaped, quoted elements of \code{vec}; \code{NA} is left unquoted.
 }
 \description{
 Take an existing R vector and add quotes to it for easy manipulation and copy/pasting.
