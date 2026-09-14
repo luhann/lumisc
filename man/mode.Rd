@@ -10,5 +10,6 @@ mode(x)
 \item{x}{Vector you wish to evaluate.}
 }
 \description{
-Returns the mode (number that occurs the most) of a given vector.
+Returns the mode (number that occurs the most) of a given vector. All tied values are returned, and \code{NA} counts as
+a value.
 }

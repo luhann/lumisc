@@ -44,7 +44,8 @@ is_date = function(x) {
 
 #' Mode
 #'
-#' Returns the mode (number that occurs the most) of a given vector.
+#' Returns the mode (number that occurs the most) of a given vector. All tied values are returned, and `NA` counts as
+#' a value.
 #'
 #' @param x Vector you wish to evaluate.
 #' @name mode
@@ -70,7 +71,25 @@ mode.numeric = function(x) {
 }
 
 #' @export
-mode.factor = mode.numeric
+mode.integer = function(x) {
+  n_na = if (anyNA(x)) sum(is.na(x)) else 0L
+  if (n_na == length(x)) {
+    return(mode.numeric(x))
+  }
+  lo = min(x, na.rm = TRUE)
+  hi = max(x, na.rm = TRUE)
+  if (hi - as.numeric(lo) >= length(x)) {
+    return(mode.numeric(x))
+  }
+  tab = c(tabulate(x - lo + 1L, hi - lo + 1L), n_na)
+  c(lo:hi, NA)[tab == max(tab) & tab > 0L]
+}
+
+#' @export
+mode.factor = function(x) {
+  tab = c(tabulate(x, nlevels(x)), if (anyNA(x)) sum(is.na(x)) else 0L)
+  factor(c(levels(x), NA)[tab == max(tab) & tab > 0L], levels = levels(x), ordered = is.ordered(x))
+}
 
 #' @export
 mode.character = mode.numeric
