@@ -11,13 +11,12 @@ write_df(list, file, overwrite = TRUE, ...)
 
 \item{file}{File name of the final csv.}
 
-\item{overwrite}{Boolean value, if true will always overwrite file even if it exists.}
+\item{overwrite}{Boolean value, if true will always overwrite file even if it exists, otherwise appends to it.}
 
-\item{...}{Additional options passed to the write.table command.}
+\item{...}{Additional options passed to \code{\link[data.table:fwrite]{data.table::fwrite()}}.}
 }
 \description{
-Write a list of rectangular dataframes to a single csv keeping column names, and appending a single space between
-dataframes.
+Write a list of rectangular dataframes to a single csv keeping column names, separating dataframes with a blank line.
 }
 \details{
 This function never writes row names to the csv file.
