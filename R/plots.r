@@ -24,7 +24,6 @@ estimate_plot = function(model, model_names, coefficient = NULL, ...) {
 
     data.table::setattr(model, "names", model_names)
     model_table = data.table::rbindlist(model, use.names = TRUE, idcol = "model")
-
   }
 
   if (!is.null(coefficient)) {

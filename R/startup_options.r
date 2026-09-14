@@ -27,47 +27,51 @@
 #' @param download.file.extra Used by RSPM for curl/wget installs, e.g. Rscript.
 #' @param ... Other arguments passed to \code{options}.
 #' @export
-set_startup_options = function(digits = 4L,
-                               bitmapType = "cairo",
-                               show.signif.stars = FALSE, # nolint
-                               useFancyQuotes = FALSE, # nolint
-                               width = 88L,
-                               Ncpus = max(1L, parallel::detectCores() - 1L),
-                               max.print = 100L, # Avoid blow up
-                               servr.daemon = TRUE, # For xaringan presentations,
-                               max = 10L, # List printing
-                               mc.cores = max(1L, parallel::detectCores() - 1L),
-                               error = "rlang",
-                               menu.graphics = FALSE,
-                               continue = "-_- ",
-                               warnPartialMatchArgs = TRUE, # nolint
-                               warnPartialMatchDollar = TRUE, # nolint
-                               warnPartialMatchAttr = TRUE, # nolint
-                               nwarnings = 1e6,
-                               scipen = 999L, # nolint
-                               datatable.print.class = TRUE,
-                               browser = "xdg-open",
-                               HTTPUserAgent = sprintf(
-                                 "R/%s R (%s)", getRversion(),
-                                 paste(
-                                   getRversion(),
-                                   R.version$platform,
-                                   R.version$arch,
-                                   R.version$os
-                                 )
-                               ),
-                               download.file.extra = sprintf(
-                                 "--header \"User-Agent: R (%s)\"",
-                                 paste(
-                                   getRversion(),
-                                   R.version$platform,
-                                   R.version$arch,
-                                   R.version$os
-                                 )
-                               ),
-                               ...) {
-  if (error == "rlang") if (requireNamespace("rlang", quietly = TRUE)) options(error = rlang::entrace)
-
+set_startup_options = function(
+  digits = 4L,
+  bitmapType = "cairo",
+  show.signif.stars = FALSE, # nolint
+  useFancyQuotes = FALSE, # nolint
+  width = 88L,
+  Ncpus = max(1L, parallel::detectCores() - 1L),
+  max.print = 100L, # Avoid blow up
+  servr.daemon = TRUE, # For xaringan presentations,
+  max = 10L, # List printing
+  mc.cores = max(1L, parallel::detectCores() - 1L),
+  error = "rlang",
+  menu.graphics = FALSE,
+  continue = "-_- ",
+  warnPartialMatchArgs = TRUE, # nolint
+  warnPartialMatchDollar = TRUE, # nolint
+  warnPartialMatchAttr = TRUE, # nolint
+  nwarnings = 1e6,
+  scipen = 999L, # nolint
+  datatable.print.class = TRUE,
+  browser = "xdg-open",
+  HTTPUserAgent = sprintf(
+    "R/%s R (%s)",
+    getRversion(),
+    paste(
+      getRversion(),
+      R.version$platform,
+      R.version$arch,
+      R.version$os
+    )
+  ),
+  download.file.extra = sprintf(
+    "--header \"User-Agent: R (%s)\"",
+    paste(
+      getRversion(),
+      R.version$platform,
+      R.version$arch,
+      R.version$os
+    )
+  ),
+  ...
+) {
+  if (error == "rlang") {
+    if (requireNamespace("rlang", quietly = TRUE)) options(error = rlang::entrace)
+  }
 
   if (requireNamespace("languageserver", quietly = TRUE)) {
     options(

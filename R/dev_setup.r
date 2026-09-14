@@ -127,4 +127,3 @@ check_package = function(package) {
     )
   }
 }
-
