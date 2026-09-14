@@ -4,13 +4,15 @@
 \alias{proportions}
 \title{Proportions}
 \usage{
-proportions(x, margin = NULL)
+proportions(x, margin = NULL, ...)
 }
 \arguments{
 \item{x}{a data.frame containing only numeric entries}
 
 \item{margin}{a vector giving the margins to split by.
 E.g., for a data.frame '1' indicates rows, '2' indicates columns.}
+
+\item{...}{Additional arguments passed to methods (currently unused).}
 }
 \description{
 Calculate proportions for a given data.frame, this extends \code{proportions} to work on data.frames.
