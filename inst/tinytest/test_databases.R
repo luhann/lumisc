@@ -55,6 +55,14 @@ write.csv(bad_data, bad_cred_file, row.names = FALSE)
 # Suppress warning about missing colClasses columns (expected for malformed file)
 expect_error(suppressWarnings(retrieve_credentials(bad_cred_file, project_id = 1L)))
 
+# Test: is_valid_url
+expect_true(lumisc:::is_valid_url("https://example.com"))
+expect_true(lumisc:::is_valid_url("http://example.com"))
+expect_true(lumisc:::is_valid_url("https://sub.example.com/path"))
+expect_true(lumisc:::is_valid_url("ftp://files.example.com"))
+expect_false(lumisc:::is_valid_url("not_a_url"))
+expect_false(lumisc:::is_valid_url(""))
+
 # Clean up tmp files (also auto-cleaned when R session ends)
 unlink(cred_file)
 unlink(bad_cred_file)

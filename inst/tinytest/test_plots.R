@@ -8,4 +8,19 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
 
   plot = estimate_plot(list(x, y), c("x", "y"), coefficient = "mpg")
   expect_true("ggplot" %in% class(plot), info = "Expect ggplot class")
+
+  # single model (not a list)
+  single_plot = estimate_plot(x)
+  expect_true("ggplot" %in% class(single_plot), info = "Expect ggplot class for single model")
+
+  # theme_patroclus
+  thm = theme_patroclus()
+  expect_inherits(thm, "theme")
+
+  thm_no_ticks = theme_patroclus(ticks = FALSE)
+  expect_inherits(thm_no_ticks, "theme")
+}
+
+if (!requireNamespace("ggplot2", quietly = TRUE)) {
+  expect_error(estimate_plot(list(x, y), c("x", "y")), class = "package_not_installed")
 }

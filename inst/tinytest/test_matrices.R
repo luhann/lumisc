@@ -13,6 +13,15 @@ expect_error(is_orthogonal(1:10, coerce = TRUE), class = "failed_coercion")
 expect_false(is_orthogonal(1:25, coerce = TRUE), info = "matrix is coerced but not orthogonal")
 expect_true(is_orthogonal(as.numeric(diag(5)), coerce = TRUE), info = "matrix is coerced and orthogonal")
 
+# test numerical tolerance: a rotation matrix is orthogonal but has floating-point error
+theta = pi / 4
+rot = matrix(c(cos(theta), sin(theta), -sin(theta), cos(theta)), nrow = 2)
+expect_true(is_orthogonal(rot), info = "rotation matrix is orthogonal with tolerance")
+
+# test near-orthogonal matrix that is not quite orthogonal
+near = diag(5) + 1e-4
+expect_false(is_orthogonal(near), info = "near-identity is not orthogonal")
+
 # test colMax
 expect_equal(colMaxs(mat), c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100))
 expect_error(colMaxs(as.character(mat)), class = "invalid_type_error")
@@ -29,3 +38,13 @@ expect_equal(splitn(mat)[[1]], mat[1, , drop = FALSE])
 expect_equal(splitn(mat, r = 2)[[1]], mat[1:2, , drop = FALSE])
 expect_equal(splitn(mat, c = 5)[[1]], mat[1, 1:5, drop = FALSE])
 expect_error(splitn(as.character(mat)), class = "invalid_type_error")
+
+# test splitn dimensions
+splits = splitn(mat, r = 5, c = 5)
+expect_equal(length(splits), 4L)
+expect_equal(dim(splits[[1]]), c(5L, 5L))
+
+# test colMaxs / colVars with NA
+mat_na = matrix(c(1, NA, 3, 4, 5, 6), nrow = 2)
+expect_true(is.na(colMaxs(mat_na)[1]))
+expect_true(is.na(colVars(mat_na)[1]))

@@ -16,3 +16,9 @@ expect_equal(length(NA %!in% 1:10), 1L)
 expect_equal(1 %||% 2, 1)
 expect_equal(NULL %||% 2, 2)
 expect_equal(NA %||% 2, NA)
+
+expect_equal(c(1:2) %!in% 2:10, c(TRUE, FALSE))
+expect_equal(c("a", "d") %!in% c("a", "b", "c"), c(FALSE, TRUE))
+
+expect_equal("hello" %cat% "world", "helloworld")
+expect_equal("1" %cat% "2", "12")
