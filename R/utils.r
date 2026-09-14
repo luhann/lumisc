@@ -11,9 +11,11 @@ cache_file = function(file, expr, force = FALSE, ...) {
     return(readRDS(file))
   }
 
-  object = eval(substitute(expr), envir = parent.frame())
-  saveRDS(object, file, ...)
-  object
+  tmp = tempfile(tmpdir = dirname(file))
+  on.exit(unlink(tmp))
+  saveRDS(expr, tmp, ...)
+  file.rename(tmp, file)
+  expr
 }
 
 #' create_list

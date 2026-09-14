@@ -99,4 +99,10 @@ cache_env_result = cache_file(
   local_val * 2
 )
 expect_equal(cache_env_result, 84)
+
+cache_dir = tempfile()
+dir.create(cache_dir)
+cache_file(file.path(cache_dir, "x.rds"), 1)
+expect_equal(list.files(cache_dir), "x.rds")
+unlink(cache_dir, recursive = TRUE)
 on.exit(unlink(file.path(tmp, "test_env.rds")), add = TRUE)
