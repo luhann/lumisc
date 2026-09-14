@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulations.r
 \name{rmvn}
 \alias{rmvn}
-\title{rmvn}
+\title{Simulate multivariate normal}
 \usage{
 rmvn(n, mu = 0, cov = matrix(1))
 }
@@ -11,20 +11,18 @@ rmvn(n, mu = 0, cov = matrix(1))
 
 \item{mu}{Mean vector.}
 
-\item{cov}{Variance-covariance matrix.}
+\item{cov}{Symmetric positive definite variance-covariance matrix.}
 }
 \value{
 A matrix of size n x \code{length(mu)}.  Each row corresponds to a
 separate replicate.
 }
 \description{
-Simulate multivariate normal
+Simulate from a multivariate normal distribution.
 }
 \details{
-Simulate from a multivariate normal distribution.
-
 Uses the Cholesky decomposition of the matrix \code{cov}, obtained by
-\code{\link[base:chol]{base::chol()}}.
+\code{\link[base:chol]{base::chol()}}, so singular (positive semi-definite) matrices are not supported.
 }
 \examples{
 rmvn(100, c(1, 2), matrix(c(1, 1, 1, 4), ncol = 2))

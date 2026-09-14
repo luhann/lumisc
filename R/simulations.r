@@ -1,5 +1,3 @@
-#'  rmvn
-#'
 #' Simulate multivariate normal
 #'
 #' Simulate from a multivariate normal distribution.
@@ -8,11 +6,11 @@
 #'
 #' @param mu Mean vector.
 #'
-#' @param cov Variance-covariance matrix.
+#' @param cov Symmetric positive definite variance-covariance matrix.
 #'
 #' @details
 #' Uses the Cholesky decomposition of the matrix `cov`, obtained by
-#'   [base::chol()].
+#'   [base::chol()], so singular (positive semi-definite) matrices are not supported.
 #'
 #' @importFrom stats rnorm
 #' @export
@@ -29,9 +27,12 @@
 #' datagen
 rmvn = function(n, mu = 0, cov = matrix(1)) {
   p = length(mu)
-  if (anyNA(match(dim(cov), p))) {
+  cov = as.matrix(cov)
+  if (!identical(dim(cov), c(p, p))) {
     rlang::abort("cov matrix has incorrect number of dimensions", class = "invalid_dim_error")
   }
-  d = chol(cov)
-  matrix(rnorm(n * p), ncol = p) %*% d + rep(mu, rep(n, p))
+  if (!isSymmetric(unname(cov))) {
+    rlang::abort("cov matrix is not symmetric", class = "asymmetric_cov_error")
+  }
+  matrix(rnorm(n * p), ncol = p) %*% chol(cov) + rep(mu, rep(n, p))
 }
