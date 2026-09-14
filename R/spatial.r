@@ -1,59 +1,45 @@
 #' Donut Geomasking
 #'
-#' Transform x:y coordinates to new random x:y coordinates within a defined donut to mask original location.
-#' This function works with GPS coordinates as well. Work is being done on supporting lon:lat coordinates.
+#' Displace each point to a random location uniformly distributed over the area of an annulus (donut) centred on the
+#' original point, so no masked point lies closer than `min_dist` or further than `max_dist` from its origin.
 #'
+#' With `units = "m"` coordinates are taken as longitude (x) and latitude (y) in decimal degrees and distances in
+#' metres, converted with the WGS84 length of a degree at each point's latitude. With `units = "coord"` distances are
+#' in the same units as the coordinates.
 #'
 #' @name donut_geomask
-#' @param xcoords X coordinates to transform
-#' @param ycoords Y coordinates to transform
+#' @param xcoords X coordinates (longitude) to transform
+#' @param ycoords Y coordinates (latitude) to transform
 #' @param min_dist The minimum distance the new transformed points must be from the original point
 #' @param max_dist The maximum distance the new transformed points must be from the original point
-#' @param units The units to do the transformation in by default meters, else will perform transformation on coordinate
-#' data
+#' @param units Either "m" for metres on lon:lat coordinates, or "coord" for coordinate units
 #' @return A list containing new x and y coordinate vectors
 #' @author Maia Lesosky
 #' @author Luke Hannan
 #' @export
-donut_geomask = function(xcoords, ycoords, min_dist = 5, max_dist = 10, units = "m") {
-  # check
-  if (length(xcoords) != length(ycoords)) {
-    stop("x and y coordinates different lengths, please try again")
+donut_geomask = function(xcoords, ycoords, min_dist = 5, max_dist = 10, units = c("m", "coord")) {
+  units = match.arg(units)
+  n = length(xcoords)
+
+  if (n != length(ycoords)) {
+    rlang::abort("x and y coordinates different lengths, please try again")
   }
 
   if (min_dist >= max_dist) {
-    stop("A donut, not an involution, please.")
+    rlang::abort("A donut, not an involution, please.")
   }
 
-  # convert distance in meters to gps distance
-  # 1° = 111 111m
-  # 0.00001° = 1.11 m
+  # r = sqrt(U(min^2, max^2)) gives density proportional to r, i.e. uniform over the annulus area
+  r = sqrt(stats::runif(n, min_dist^2, max_dist^2))
+  theta = stats::runif(n, 0, 2 * pi)
+  dx = r * cos(theta)
+  dy = r * sin(theta)
+
   if (units == "m") {
-    min_dist = min_dist / 111000
-    max_dist = max_dist / 111000
+    phi = ycoords * pi / 180
+    dx = dx / (111412.84 * cos(phi) - 93.5 * cos(3 * phi) + 0.118 * cos(5 * phi))
+    dy = dy / (111132.92 - 559.82 * cos(2 * phi) + 1.175 * cos(4 * phi) - 0.0023 * cos(6 * phi))
   }
 
-  # randomly sample distance - should actually sample from uniform and transform, same below
-  dis = stats::runif(min = min_dist, max = max_dist, n = length(xcoords))
-
-  # random sample rotations in degress and convert to radians
-  rot_rad = stats::runif(min = 0, max = 360, n = length(xcoords)) * pi / 180 # degrees to radians
-
-  # calc new x and y coord
-  move = mapply(
-    function(dis, rot_rad) {
-      h = matrix(c(dis, 0), nrow = 2, ncol = 1, byrow = TRUE)
-
-      rot_mat = matrix(c(cos(rot_rad), -sin(rot_rad), sin(rot_rad), cos(rot_rad)), nrow = 2, ncol = 2, byrow = TRUE)
-
-      rot_mat %*% h
-    },
-    dis = dis,
-    rot_rad = rot_rad
-  )
-
-  xnew = move[1, ] + xcoords
-  ynew = move[2, ] + ycoords
-
-  return(list(xnew = xnew, ynew = ynew))
+  list(xnew = xcoords + dx, ynew = ycoords + dy)
 }

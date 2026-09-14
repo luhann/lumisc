@@ -4,26 +4,36 @@
 \alias{donut_geomask}
 \title{Donut Geomasking}
 \usage{
-donut_geomask(xcoords, ycoords, min_dist = 5, max_dist = 10, units = "m")
+donut_geomask(
+  xcoords,
+  ycoords,
+  min_dist = 5,
+  max_dist = 10,
+  units = c("m", "coord")
+)
 }
 \arguments{
-\item{xcoords}{X coordinates to transform}
+\item{xcoords}{X coordinates (longitude) to transform}
 
-\item{ycoords}{Y coordinates to transform}
+\item{ycoords}{Y coordinates (latitude) to transform}
 
 \item{min_dist}{The minimum distance the new transformed points must be from the original point}
 
 \item{max_dist}{The maximum distance the new transformed points must be from the original point}
 
-\item{units}{The units to do the transformation in by default meters, else will perform transformation on coordinate
-data}
+\item{units}{Either "m" for metres on lon:lat coordinates, or "coord" for coordinate units}
 }
 \value{
 A list containing new x and y coordinate vectors
 }
 \description{
-Transform x:y coordinates to new random x:y coordinates within a defined donut to mask original location.
-This function works with GPS coordinates as well. Work is being done on supporting lon:lat coordinates.
+Displace each point to a random location uniformly distributed over the area of an annulus (donut) centred on the
+original point, so no masked point lies closer than \code{min_dist} or further than \code{max_dist} from its origin.
+}
+\details{
+With \code{units = "m"} coordinates are taken as longitude (x) and latitude (y) in decimal degrees and distances in
+metres, converted with the WGS84 length of a degree at each point's latitude. With \code{units = "coord"} distances are
+in the same units as the coordinates.
 }
 \author{
 Maia Lesosky
