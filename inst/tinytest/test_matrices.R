@@ -48,3 +48,8 @@ expect_equal(dim(splits[[1]]), c(5L, 5L))
 mat_na = matrix(c(1, NA, 3, 4, 5, 6), nrow = 2)
 expect_true(is.na(colMaxs(mat_na)[1]))
 expect_true(is.na(colVars(mat_na)[1]))
+expect_equal(colVars(mat_na, na.rm = TRUE), apply(mat_na, 2, stats::var, na.rm = TRUE))
+
+set.seed(1)
+big = matrix(rnorm(200, mean = 1e8), 20)
+expect_equal(colVars(big), apply(big, 2, stats::var))

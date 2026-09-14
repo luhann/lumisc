@@ -2,14 +2,19 @@
 % Please edit documentation in R/matrices.r
 \name{colVars}
 \alias{colVars}
+\alias{colVars.matrix}
 \title{colVars}
 \usage{
 colVars(mat, ...)
+
+\method{colVars}{matrix}(mat, na.rm = FALSE, ...)
 }
 \arguments{
 \item{mat}{Matrix containing numeric values}
 
-\item{...}{Additional parameters to be passed to variance function}
+\item{...}{Additional parameters passed to methods}
+
+\item{na.rm}{Should missing values be removed before computing each column's variance}
 }
 \description{
 Computes the column wise variances on a given matrix.

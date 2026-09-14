@@ -9,7 +9,7 @@ colMaxs(mat, ...)
 \arguments{
 \item{mat}{Matrix containing numeric values}
 
-\item{...}{Additional parameters to be passed to variance function}
+\item{...}{Additional parameters to be passed to max}
 }
 \description{
 Computes the maximum value in each column for a given matrix.

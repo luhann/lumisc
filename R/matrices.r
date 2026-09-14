@@ -62,7 +62,8 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
 #' Computes the column wise variances on a given matrix.
 #'
 #' @param mat Matrix containing numeric values
-#' @param ... Additional parameters to be passed to variance function
+#' @param na.rm Should missing values be removed before computing each column's variance
+#' @param ... Additional parameters passed to methods
 #' @name colVars
 #' @export
 colVars = function(mat, ...) {
@@ -78,9 +79,11 @@ colVars.default = function(mat, ...) {
   )
 }
 
+#' @rdname colVars
 #' @export
-colVars.matrix = function(mat, ...) {
-  apply(mat, MARGIN = 2, stats::var, ...)
+colVars.matrix = function(mat, na.rm = FALSE, ...) {
+  n = if (na.rm) colSums(!is.na(mat)) else nrow(mat)
+  colSums((mat - rep(colMeans(mat, na.rm = na.rm), each = nrow(mat)))^2, na.rm = na.rm) / (n - 1)
 }
 
 #' colMaxs
@@ -88,7 +91,7 @@ colVars.matrix = function(mat, ...) {
 #' Computes the maximum value in each column for a given matrix.
 #'
 #' @param mat Matrix containing numeric values
-#' @param ... Additional parameters to be passed to variance function
+#' @param ... Additional parameters to be passed to max
 #' @name colMaxs
 #' @export
 colMaxs = function(mat, ...) {
