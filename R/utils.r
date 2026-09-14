@@ -138,8 +138,8 @@ rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 #'
 #' Vectorized version of switch
 #'
-#' Vectorized version of [base::switch()]: just loops over
-#' input and calls [base::switch()].
+#' Vectorized version of [base::switch()]: calls [base::switch()] once per unique
+#' value of the input and maps the results back.
 #'
 #' @param EXPR An expression evaluating to a vector of numbers of strings
 #' @param ... List of alternatives
@@ -155,7 +155,8 @@ rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 #' @export
 #' @author Karl Broman
 switchv = function(EXPR, ...) {
-  unlist(lapply(EXPR, \(x) switch(x, ...) %||% NA)) %||% EXPR[0]
+  keys = unique(EXPR)
+  unlist(lapply(keys, \(x) switch(x, ...) %||% NA)[match(EXPR, keys)]) %||% EXPR[0]
 }
 
 #' view

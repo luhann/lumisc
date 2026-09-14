@@ -18,8 +18,8 @@ Vector of returned values, simplified to their common type. Elements with no mat
 Vectorized version of switch
 }
 \details{
-Vectorized version of \code{\link[base:switch]{base::switch()}}: just loops over
-input and calls \code{\link[base:switch]{base::switch()}}.
+Vectorized version of \code{\link[base:switch]{base::switch()}}: calls \code{\link[base:switch]{base::switch()}} once per unique
+value of the input and maps the results back.
 }
 \examples{
 switchv(c("horse", "fish", "cat", "bug"),
