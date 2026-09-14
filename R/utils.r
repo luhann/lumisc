@@ -9,12 +9,11 @@
 cache_file = function(file, expr, force = FALSE, ...) {
   if (file.exists(file) && !force) {
     return(readRDS(file))
-  } else {
-    # Evaluate expr in the parent environment
-    object = eval(substitute(expr), envir = parent.frame())
-    saveRDS(object, file, ...)
-    return(object)
   }
+
+  object = eval(substitute(expr), envir = parent.frame())
+  saveRDS(object, file, ...)
+  object
 }
 
 #' create_list
