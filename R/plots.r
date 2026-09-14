@@ -5,51 +5,42 @@
 #' @name estimate_plot
 #' @importFrom rlang .data
 #' @param model A list of statistical model objects, or a single model.
-#' @param model_names A character vector containing the list of model names.
+#' @param model_names A character vector of model names. Defaults to the names of `model`.
 #' @param coefficient The model term to be compared across all models.
 #' @param ... Additional arguments passed to broom::tidy.
-#' @return An invisible plot containing all model estimates as a ggplot
+#' @return A ggplot of all model estimates
 #' @export
-estimate_plot = function(model, model_names, coefficient = NULL, ...) {
+estimate_plot = function(model, model_names = names(model), coefficient = NULL, ...) {
   # bind term to null to pass R CMD CHECK for data.table
   term = NULL
 
   check_package("ggplot2")
   check_package("broom")
 
-  if (!inherits(model, "list")) {
-    model_table = broom::tidy(model, conf.int = TRUE, ...)
-  } else {
-    model = lapply(model, broom::tidy, conf.int = TRUE, ...)
+  single = !inherits(model, "list")
 
-    data.table::setattr(model, "names", model_names)
-    model_table = data.table::rbindlist(model, use.names = TRUE, idcol = "model")
+  model_table = if (single) {
+    broom::tidy(model, conf.int = TRUE, ...)
+  } else {
+    lapply(model, broom::tidy, conf.int = TRUE, ...) |>
+      stats::setNames(model_names) |>
+      data.table::rbindlist(use.names = TRUE, idcol = "model")
   }
 
   if (!is.null(coefficient)) {
     model_table = subset(model_table, term %in% coefficient)
   }
 
-  if (!inherits(model, "list")) {
-    p = ggplot2::ggplot(
-      ggplot2::aes(x = as.factor(.data$term), y = .data$estimate),
-      data = model_table
-    ) +
-      ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
-      ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") +
-      theme_patroclus()
+  mapping = if (single) {
+    ggplot2::aes(x = as.factor(.data$term), y = .data$estimate)
   } else {
-    # Now to make a nice plot
-    p = ggplot2::ggplot(
-      ggplot2::aes(x = as.factor(.data$model), y = .data$estimate, colour = .data$term),
-      data = model_table
-    ) +
-      ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
-      ggplot2::labs(x = "Model", y = "Estimate", colour = "Term") +
-      theme_patroclus()
+    ggplot2::aes(x = as.factor(.data$model), y = .data$estimate, colour = .data$term)
   }
 
-  p
+  ggplot2::ggplot(model_table, mapping) +
+    ggplot2::geom_pointrange(ggplot2::aes(ymin = .data$conf.low, ymax = .data$conf.high), alpha = 0.8) +
+    ggplot2::labs(x = if (single) "Term" else "Model", y = "Estimate", colour = "Term") +
+    theme_patroclus()
 }
 
 

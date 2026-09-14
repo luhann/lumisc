@@ -19,6 +19,10 @@ if (requireNamespace("ggplot2", quietly = TRUE)) {
 
   thm_no_ticks = theme_patroclus(ticks = FALSE)
   expect_inherits(thm_no_ticks, "theme")
+
+  named_plot = estimate_plot(list(x = x, y = y))
+  expect_equal(sort(unique(named_plot$data$model)), c("x", "y"))
+  expect_equal(single_plot$labels$x, "Term")
 }
 
 if (!requireNamespace("ggplot2", quietly = TRUE)) {

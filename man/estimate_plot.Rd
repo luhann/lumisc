@@ -4,19 +4,19 @@
 \alias{estimate_plot}
 \title{Return a plot of a list of models estimates and their intervals}
 \usage{
-estimate_plot(model, model_names, coefficient = NULL, ...)
+estimate_plot(model, model_names = names(model), coefficient = NULL, ...)
 }
 \arguments{
 \item{model}{A list of statistical model objects, or a single model.}
 
-\item{model_names}{A character vector containing the list of model names.}
+\item{model_names}{A character vector of model names. Defaults to the names of \code{model}.}
 
 \item{coefficient}{The model term to be compared across all models.}
 
 \item{...}{Additional arguments passed to broom::tidy.}
 }
 \value{
-An invisible plot containing all model estimates as a ggplot
+A ggplot of all model estimates
 }
 \description{
 Creates a scatter plot with one point for each estimate and lineranges for their confidence intervals.
