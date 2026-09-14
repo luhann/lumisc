@@ -1,7 +1,8 @@
 ^\.Rproj\.user$
-^air.toml$
+^air\.toml$
 ^\.github$
-^.jj$
-\.lintr
+^\.jj$
+^\.lintr$
+^jarl\.toml$
 ^lumisc\.Rproj$
 ^revdep$
