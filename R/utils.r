@@ -125,7 +125,7 @@ rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 #' @param EXPR An expression evaluating to a vector of numbers of strings
 #' @param ... List of alternatives
 #'
-#' @return Vector of returned values.
+#' @return Vector of returned values, simplified to their common type. Elements with no matching alternative are `NA`.
 #'
 #' @examples
 #' switchv(c("horse", "fish", "cat", "bug"),
@@ -136,13 +136,7 @@ rgb2hex = function(r, g, b) grDevices::rgb(r, g, b, maxColorValue = 255)
 #' @export
 #' @author Karl Broman
 switchv = function(EXPR, ...) {
-  result = EXPR
-
-  for (i in seq(along.with = result)) {
-    result[i] = switch(EXPR[i], ...)
-  }
-
-  result
+  unlist(lapply(EXPR, \(x) switch(x, ...) %||% NA)) %||% EXPR[0]
 }
 
 #' view

@@ -12,7 +12,7 @@ switchv(EXPR, ...)
 \item{...}{List of alternatives}
 }
 \value{
-Vector of returned values.
+Vector of returned values, simplified to their common type. Elements with no matching alternative are \code{NA}.
 }
 \description{
 Vectorized version of switch

@@ -44,6 +44,9 @@ expect_equal(
   c("fast", "what?", "cute", "what?")
 )
 expect_equal(switchv(character(0), a = 1), character(0))
+expect_equal(switchv(c("a", "z"), a = "x"), c("x", NA))
+expect_equal(switchv(c("a", "b"), a = 1, b = 2.5), c(1, 2.5))
+expect_equal(switchv(c("a", "b", "c"), a = , b = "ab", "other"), c("ab", "ab", "other"))
 
 # quote_vec tests
 expect_equal(1L, length(quote_vec(letters)))
