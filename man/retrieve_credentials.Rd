@@ -4,25 +4,21 @@
 \alias{retrieve_credentials}
 \title{Read a token and other credentials from a file}
 \usage{
-retrieve_credentials(
-  path_credential,
-  project_id = NA_character_,
-  check_url = FALSE,
-  username = NA_character_,
-  uri_name = NA_character_
-)
+retrieve_credentials(path_credential, ..., check_url = FALSE)
 }
 \arguments{
 \item{path_credential}{The path to the credentials file.}
 
-\item{project_id}{Allows project_id to be specified, particularly useful when interacting with the redcap api.}
+\item{...}{Named filters, each matching a column of the credentials file, e.g. \code{project_id = 123} or
+\code{username = "luke"}.}
 
-\item{check_url}{Should the urls in the credentials file be validated. Defaults to FALSE.}
-
-\item{username}{Username to search for in credentials file.}
-
-\item{uri_name}{uri of project to search for in credentials file.}
+\item{check_url}{Should the \code{uri} of the matched credential be validated. Defaults to FALSE.}
+}
+\value{
+A named list holding the matched row.
 }
 \description{
-This function helps manage tokens securely for connecting to various online data sources.
+Reads a csv of credentials, one row per credential, and returns the single row matching every filter supplied in
+\code{...}. The file must contain a \code{token} column; any other columns are optional and returned as-is. Lines starting
+with \verb{#} are treated as comments. All fields are read as character so tokens and ids keep leading zeros.
 }

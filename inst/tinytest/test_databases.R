@@ -1,68 +1,46 @@
-# Test retrieve_credentials function
-
-# Skip remaining tests if REDCapR is not installed
-if (!requireNamespace("REDCapR", quietly = TRUE)) {
-  exit_file("REDCapR not installed, skipping retrieve_credentials tests")
-}
-
-# Create a temporary credentials file for testing
 cred_file = tempfile(fileext = ".csv")
 
-# Create valid test credentials file
 cred_data = data.frame(
-  uri = c("https://redcap.example.com/api/", "https://redcap2.example.com/api/"),
+  uri = c("https://redcap.example.com/api/", "https://10.0.0.5/api/"),
   uri_name = c("project_a", "project_b"),
   username = c("user1", "user2"),
   project_id = c(123L, 456L),
-  token = c("ABC123TOKEN", "DEF456TOKEN"),
-  comment = c("Test project A", "Test project B")
+  token = c("0123TOKEN", "DEF456TOKEN"),
+  comment = c("Luke's project", "Test, project B")
 )
 write.csv(cred_data, cred_file, row.names = FALSE)
+write("# a comment line", cred_file, append = TRUE)
 
-# Test: retrieve by project_id
 result = retrieve_credentials(cred_file, project_id = 123L)
 expect_true(is.list(result))
-expect_equal(result$project_id, 123L)
+expect_equal(result$project_id, "123")
 expect_equal(result$username, "user1")
-expect_equal(result$token, "ABC123TOKEN")
+expect_equal(result$token, "0123TOKEN")
+expect_equal(result$comment, "Luke's project")
 
-# Test: retrieve by uri_name
-result = retrieve_credentials(cred_file, uri_name = "project_b")
-expect_true(is.list(result))
-expect_equal(result$project_id, 456L)
-expect_equal(result$username, "user2")
+result = retrieve_credentials(cred_file, uri_name = "project_b", check_url = TRUE)
+expect_equal(result$project_id, "456")
+expect_equal(result$comment, "Test, project B")
 
-# Test: retrieve by username
-result = retrieve_credentials(cred_file, username = "user1")
-expect_true(is.list(result))
-expect_equal(result$username, "user1")
-expect_equal(result$project_id, 123L)
+expect_equal(retrieve_credentials(cred_file, username = "user1", project_id = "123")$uri_name, "project_a")
 
-# Test: error when project_id not found
-expect_error(retrieve_credentials(cred_file, project_id = 999L))
+expect_error(retrieve_credentials(cred_file, project_id = 999L), class = "credential_match_error")
+expect_error(retrieve_credentials(cred_file, uri_name = "project_a", username = "user2"), class = "credential_match_error")
+expect_error(retrieve_credentials(cred_file), class = "credential_match_error")
+expect_error(retrieve_credentials(cred_file, 123L), class = "invalid_filter_error")
+expect_error(retrieve_credentials(cred_file, team = "a"), class = "invalid_credentials_error")
 
-# Test: error when uri_name not found
-expect_error(retrieve_credentials(cred_file, uri_name = "nonexistent"))
-
-# Test: error when username not found
-expect_error(retrieve_credentials(cred_file, username = "nobody"))
-
-# Test: invalid credentials file (missing columns)
 bad_cred_file = tempfile(fileext = ".csv")
-bad_data = data.frame(uri = "https://example.com", token = "ABC123")
-write.csv(bad_data, bad_cred_file, row.names = FALSE)
+write.csv(data.frame(uri = "https://example.com", user = "a"), bad_cred_file, row.names = FALSE)
+expect_error(retrieve_credentials(bad_cred_file, user = "a"), class = "invalid_credentials_error")
 
-# Suppress warning about missing colClasses columns (expected for malformed file)
-expect_error(suppressWarnings(retrieve_credentials(bad_cred_file, project_id = 1L)))
-
-# Test: is_valid_url
 expect_true(lumisc:::is_valid_url("https://example.com"))
 expect_true(lumisc:::is_valid_url("http://example.com"))
 expect_true(lumisc:::is_valid_url("https://sub.example.com/path"))
 expect_true(lumisc:::is_valid_url("ftp://files.example.com"))
+expect_true(lumisc:::is_valid_url("https://10.0.0.5:8443/api"))
+expect_true(lumisc:::is_valid_url("http://localhost:8080"))
 expect_false(lumisc:::is_valid_url("not_a_url"))
 expect_false(lumisc:::is_valid_url(""))
 
-# Clean up tmp files (also auto-cleaned when R session ends)
-unlink(cred_file)
-unlink(bad_cred_file)
+unlink(c(cred_file, bad_cred_file))

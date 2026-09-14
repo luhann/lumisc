@@ -1,109 +1,51 @@
-#' @name
-#' retrieve_credentials
-#'
-#' @title
 #' Read a token and other credentials from a file
 #'
-#' @description
-#' This function helps manage tokens securely for connecting to various online data sources.
+#' Reads a csv of credentials, one row per credential, and returns the single row matching every filter supplied in
+#' `...`. The file must contain a `token` column; any other columns are optional and returned as-is. Lines starting
+#' with `#` are treated as comments. All fields are read as character so tokens and ids keep leading zeros.
+#'
 #' @param path_credential The path to the credentials file.
-#' @param project_id Allows project_id to be specified, particularly useful when interacting with the redcap api.
-#' @param check_url Should the urls in the credentials file be validated. Defaults to FALSE.
-#' @param username Username to search for in credentials file.
-#' @param uri_name uri of project to search for in credentials file.
+#' @param ... Named filters, each matching a column of the credentials file, e.g. `project_id = 123` or
+#'   `username = "luke"`.
+#' @param check_url Should the `uri` of the matched credential be validated. Defaults to FALSE.
+#' @return A named list holding the matched row.
 #'
 #' @export
-retrieve_credentials = function(
-  path_credential,
-  project_id = NA_character_,
-  check_url = FALSE,
-  username = NA_character_,
-  uri_name = NA_character_
-) {
-  # check if REDCapR is installed
-  check_package("REDCapR")
+retrieve_credentials = function(path_credential, ..., check_url = FALSE) {
+  filters = list(...)
+  if (!rlang::is_named2(filters)) {
+    rlang::abort("All filters in `...` must be named.", class = "invalid_filter_error")
+  }
 
-  # return column names and types
-  credentials = utils::read.table(
-    file = path_credential,
-    comment.char = "#",
-    header = TRUE,
-    colClasses = c(
-      uri = "character",
-      uri_name = "character",
-      username = "character",
-      project_id = "integer",
-      token = "character",
-      comment = "character"
-    ),
-    sep = ",",
-    fill = TRUE,
-    fileEncoding = "UTF-8"
-  )
+  credentials = data.table::fread(path_credential, colClasses = "character", comment.char = "#")
 
-  # convert to data.table
-  data.table::setDT(credentials)
-
-  # Check that it's a data.frame with valid variable names
-  if (!inherits(credentials, "data.frame")) {
+  missing_cols = setdiff(c("token", if (check_url) "uri", names(filters)), names(credentials))
+  if (length(missing_cols)) {
     rlang::abort(
-      "The credentials file was not correctly transformed into a base::data.frame()]. Make sure it's a well-formed CSV."
+      sprintf("The credentials file lacks column(s): %s.", toString(missing_cols)),
+      class = "invalid_credentials_error"
     )
-  } else if (
-    !identical(
-      intersect(colnames(credentials), c("uri", "uri_name", "username", "project_id", "token", "comment")),
-      colnames(credentials)
-    )
-  ) {
+  }
+
+  hits = Reduce(`&`, Map(\(col, value) credentials[[col]] == value, names(filters), filters), rep(TRUE, nrow(credentials)))
+  credential = credentials[which(hits), ]
+
+  if (nrow(credential) != 1L) {
     rlang::abort(
-      "The credentials file did not contain the proper variables of: `uri`, `username`, `project_id`, `token`, and `comment`."
+      sprintf("%d credentials matched the filters; expected exactly one.", nrow(credential)),
+      class = "credential_match_error"
     )
   }
 
-  credential = credentials
-
-  if (!is.na(project_id)) {
-    credential = credential[credential$project_id == project_id, ]
+  if (check_url && !is_valid_url(credential$uri)) {
+    rlang::abort("The matched uri does not appear to be valid, please check your credentials file.")
   }
 
-  if (!is.na(uri_name)) {
-    credential = credential[credential$uri_name == uri_name, ]
-  }
-
-  if (!is.na(username)) {
-    credential = credential[credential$username == username, ]
-  }
-
-  # Check that one and only one record matches the project id.
-  if (nrow(credential) == 0L) {
-    stop(
-      "The project_id or uri was not found in the csv credential file."
-    )
-  } else if (1L < nrow(credential)) {
-    stop(
-      "More than one matching project_id was found in the csv credential file. There should be only one."
-    )
-  } else {
-    credential = list(
-      uri = credential$uri[1L],
-      username = credential$username[1L],
-      project_id = credential$project_id[1L],
-      token = credential$token[1L],
-      comment = credential$comment[1L]
-    )
-  }
-
-  if (check_url) {
-    if (!is_valid_url(credential$uri)) {
-      rlang::abort("The matched uri does not appear to be valid, please check your credentials file.")
-    }
-  }
-
-  credential
+  as.list(credential)
 }
 
 
 is_valid_url = function(url) {
-  site_regex = "^((http|https|ftp)://)?([A-Za-z0-9-]+\\.)+[A-Za-z]{2,}(:\\d{2,5})?(/\\S*)?$"
-  grepl(site_regex, url, perl = TRUE)
+  host = r"{([A-Za-z0-9-]+\.)+[A-Za-z]{2,}|localhost|(\d{1,3}\.){3}\d{1,3}}"
+  grepl(sprintf(r"{^((https?|ftp)://)?(%s)(:\d{2,5})?(/\S*)?$}", host), url, perl = TRUE)
 }
