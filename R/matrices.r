@@ -30,11 +30,7 @@ is_orthogonal.matrix = function(x, coerce = FALSE) {
     return(FALSE)
   }
 
-  if (sum(x %*% t(x) == diag(nrow(x))) == length(x)) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
+  isTRUE(all.equal(crossprod(x), diag(nrow(x)), check.attributes = FALSE))
 }
 
 
@@ -58,11 +54,7 @@ is_orthogonal.numeric = function(x, coerce = FALSE) {
 
   x_matrix = matrix(x, nrow = sqrt(length(x)))
 
-  if (sum(x_matrix %*% t(x_matrix) == diag(nrow(x_matrix))) == length(x_matrix)) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
+  isTRUE(all.equal(crossprod(x_matrix), diag(nrow(x_matrix)), check.attributes = FALSE))
 }
 
 #' colVars
